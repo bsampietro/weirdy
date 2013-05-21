@@ -1,6 +1,8 @@
 module Weirdy
   class Wexception < ActiveRecord::Base
     has_many :occurrences, class_name: "WexceptionOccurrence", order: "happened_at DESC"
+    
+    attr_accessible :kind, :message, :occurrences_count, :state, :first_happened_at, :last_happened_at, :occurrences
   
     STATE = {closed: 0, open: 1}
     

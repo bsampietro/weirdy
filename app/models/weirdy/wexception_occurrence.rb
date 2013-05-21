@@ -3,7 +3,7 @@ module Weirdy
     belongs_to :wexception
   
     serialize :backtrace
-    serialize :data  
+    serialize :data
       #  url
       #  method
       #  session
@@ -11,5 +11,7 @@ module Weirdy
       #  params
       #  remote_ip
       #  xhr?
+      
+    attr_accessible :wexception, :backtrace, :backtrace_hash, :happened_at, :data
   end
 end

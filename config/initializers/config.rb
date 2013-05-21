@@ -1,2 +1,2 @@
-Weirdy::Engine.config.active_record.whitelist_attributes = false
-puts Weirdy::Engine.config.active_record.whitelist_attributes
+# doesn't work
+#Weirdy::Engine.config.active_record.whitelist_attributes = false
