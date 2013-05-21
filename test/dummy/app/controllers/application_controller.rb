@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   rescue_from Exception do |exception|
-    Weirdy::Wexception.wcreate(exception,
+    Weirdy.create_exception(exception,
       {:session => session.inspect, 
        :cookies => cookies.inspect, 
        :params => params,
