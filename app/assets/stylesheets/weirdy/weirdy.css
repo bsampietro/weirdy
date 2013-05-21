@@ -1,0 +1,11 @@
+tr.occurrences {
+  display: none;
+  padding-left: 20px;
+}
+
+td { border: 1px solid #ccc; }
+th { border: 1px solid #ccc; }
+
+.occurrence.hidden {
+  display: none;
+}

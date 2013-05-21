@@ -1,0 +1,26 @@
+<div>
+  1 of <%= occurrences.length %>
+</div>
+<div class="actions">
+  <%= link_to "<=", "#", class: "prev" %>
+  <%= link_to "=>", "#", class: "next" %>
+</div>
+<div>
+  <% occurrences.each_with_index do |occurrence, i| %>
+    <% display = i == 0 ? "" : " hidden" %>
+    <div class="occurrence<%= display %>">
+      <div>
+        Happened: <%= occurrence.happened_at %>
+      </div>  
+              
+      <div>
+        Data: <%= occurrence.data.inspect %>
+      </div>
+
+      <div>
+        Backtrace: <br/>
+        <%= raw occurrence.backtrace.join("<br/>") %>
+      </div>
+    </div>
+  <% end %>
+</div>
