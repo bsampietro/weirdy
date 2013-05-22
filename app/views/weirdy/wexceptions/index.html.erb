@@ -47,6 +47,8 @@
   <% end %>
 </table>
 
+<%= will_paginate @wexceptions %>
+
 <%= javascript_tag do %>
   $(function() {
     weirdy.wexceptionsIndex.initialize();

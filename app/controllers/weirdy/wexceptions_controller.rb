@@ -3,7 +3,10 @@ require_dependency "weirdy/application_controller"
 module Weirdy
   class WexceptionsController < ApplicationController
     def index
-      @wexceptions = Wexception.includes(:occurrences).all
+      @wexceptions = Wexception.
+        includes(:occurrences).
+        order('last_happened_at DESC').
+        paginate(:per_page => Weirdy::Config.exceptions_per_page, :page => params[:page])
     end
   end
 end

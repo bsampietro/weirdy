@@ -16,3 +16,4 @@ gem "jquery-rails"
 gem 'mysql2'
 gem 'thin'
 gem 'debugger'
+gem 'will_paginate'
