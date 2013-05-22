@@ -4,7 +4,7 @@ module Weirdy
     
     attr_accessible :kind, :message, :occurrences_count, :state, :first_happened_at, :last_happened_at, :occurrences
   
-    STATE = {closed: 0, open: 1}
+    STATE = {closed: 0, opened: 1, ignored: 2}
     
     def self.wcreate(exception, data={})
       existing_wexception = self.where(kind: exception.class.name, message: exception.message).first
@@ -12,8 +12,11 @@ module Weirdy
       if existing_wexception
         existing_wexception.occurrences_count += 1
         existing_wexception.last_happened_at = Time.zone.now
-        send_mail = false if existing_wexception.open?
-        existing_wexception.state = STATE[:open]
+        if existing_wexception.state?(:closed)
+          existing_wexception.state = STATE[:opened]
+        else
+          send_mail = false
+        end
         existing_wexception.occurrences.build(exception_occurrence_hash(exception, data))
         existing_wexception.save!
         wexception = existing_wexception
@@ -22,7 +25,7 @@ module Weirdy
           kind: exception.class.name,
           message: exception.message,
           occurrences_count: 1,
-          state: STATE[:open],
+          state: STATE[:opened],
           first_happened_at: Time.zone.now,
           last_happened_at: Time.zone.now
         )
@@ -42,8 +45,14 @@ module Weirdy
       }
     end
     
-    def open?
-      state == STATE[:open]
+    def state?(state)
+      self.state == STATE[state]
+    end
+    
+    def change_state(state)
+      state = state.to_sym
+      return unless state.in?(STATE.keys)
+      self.update_attribute(:state, STATE[state])
     end
   end
 end

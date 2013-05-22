@@ -16,10 +16,13 @@
       Last Happened At
     </th>
     <th>
+      Actions
+    </th>
+    <th>
     </th>
   </tr>
   <% for wexception in @wexceptions %>
-    <tr>
+    <tr id="wexception_<%= wexception.id %>">
       <td>
         <%= wexception.kind %>
       </td>
@@ -34,6 +37,9 @@
       </td>
       <td>
         <%= time_ago_in_words wexception.last_happened_at %> ago
+      </td>
+      <td>
+        <%= state_change_links(wexception) %>
       </td>
       <td>
         <%= link_to "Occurrences", "#", class: "occurrences" %>
