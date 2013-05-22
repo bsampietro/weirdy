@@ -8,13 +8,15 @@ module Weirdy
     
     def self.wcreate(exception, data={})
       existing_wexception = self.where(kind: exception.class.name, message: exception.message).first
+      send_mail = true
       if existing_wexception
         existing_wexception.occurrences_count += 1
         existing_wexception.last_happened_at = Time.zone.now
+        send_mail = false if existing_wexception.open?
         existing_wexception.state = STATE[:open]
         existing_wexception.occurrences.build(exception_occurrence_hash(exception, data))
         existing_wexception.save!
-        existing_wexception
+        wexception = existing_wexception
       else
         wexception = self.new(
           kind: exception.class.name,
@@ -26,8 +28,9 @@ module Weirdy
         )
         wexception.occurrences.build(exception_occurrence_hash(exception, data))
         wexception.save!
-        wexception
       end
+      Notifier.exception(wexception).deliver if send_mail && Weirdy::Config.mail_recipients.present?
+      return wexception
     end
     
     def self.exception_occurrence_hash(exception, data)
@@ -37,6 +40,10 @@ module Weirdy
         happened_at: Time.zone.now,
         data: data
       }
+    end
+    
+    def open?
+      state == STATE[:open]
     end
   end
 end
