@@ -45,6 +45,10 @@ module Weirdy
       }
     end
     
+    def self.state(state)
+      where(state: STATE[state.to_sym])
+    end
+    
     def state?(state)
       self.state == STATE[state]
     end
