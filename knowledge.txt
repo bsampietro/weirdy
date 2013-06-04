@@ -1,0 +1,14 @@
+Migrations for testing:
+  bruno@linux-zp49:~/projects/rails/weirdy> be rake app:db:create RAILS_ENV=test
+  bruno@linux-zp49:~/projects/rails/weirdy> be rake app:db:schema:load RAILS_ENV=test
+  
+Running tests:
+  bruno@linux-zp49:~/projects/rails/weirdy> ruby -Itest test/unit/weirdy/wexception_test.rb
+  
+Copy Migrations from dummy to engine:
+  ?
+  
+Starting dummy server:
+  bruno@linux-zp49:~/projects/rails/weirdy/test/dummy> rs
+  
+  
