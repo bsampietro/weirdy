@@ -1,20 +1,25 @@
-<div>
-  1 of <%= occurrences.length %>
-</div>
 <div class="actions">
   <%= link_to "<=", "#", class: "prev" %>
   <%= link_to "=>", "#", class: "next" %>
 </div>
 <div>
+  <% occurrences_length = occurrences.length %>
   <% occurrences.each_with_index do |occurrence, i| %>
     <% display = i == 0 ? "" : " hidden" %>
     <div class="occurrence<%= display %>">
+      <div>
+        <%= i + 1 %> of <%= occurrences_length %> occurrences
+      </div>
+      
       <div>
         Happened: <%= occurrence.happened_at %>
       </div>  
               
       <div>
-        Data: <%= occurrence.data.inspect %>
+        Data: <br/>
+        <% occurrence.data.each do |key, value| %>
+          <p><%= key %>: <%= value %> </p>
+        <% end %>
       </div>
 
       <div>

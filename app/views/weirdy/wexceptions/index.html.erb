@@ -1,23 +1,25 @@
-Show:
-<%= link_to_if params[:state] != "opened" && params[:state].present?, "Opened", root_url('state' => 'opened') %>
-<%= link_to_if params[:state] != "closed" || params[:state].blank?, "Closed", root_url('state' => 'closed') %>
-<%= link_to_if params[:state] != "ignored" || params[:state].blank?, "Ignored", root_url('state' => 'ignored') %>
-
-Order:
-<%= link_to_if params[:order] != "last_happened_at" && params[:order].present?, 
-  "Last Happened At", append_query_params('order' => 'last_happened_at') %>
-<%= link_to_if params[:order] != "occurrences", 
-  "Occurrences", append_query_params('order' => 'occurrences') %>
+<div class="filters">
+  <div class="show">
+    Show:
+    <%= link_to_if params[:state] != "opened" && params[:state].present?, "Opened", root_url('state' => 'opened') %>
+    <%= link_to_if params[:state] != "closed" || params[:state].blank?, "Closed", root_url('state' => 'closed') %>
+    <%= link_to_if params[:state] != "ignored" || params[:state].blank?, "Ignored", root_url('state' => 'ignored') %>
+  </div> | 
+  <div class="order">
+    Order:
+    <%= link_to_if params[:order] != "last_happened_at" && params[:order].present?, 
+      "Last Happened At", append_query_params('order' => 'last_happened_at') %>
+    <%= link_to_if params[:order] != "occurrences", 
+      "Occurrences", append_query_params('order' => 'occurrences') %>
+  </div>
+</div>
 <table>
   <tr>
-    <th>
+    <th class="kind">
       Kind
     </th>
-    <th>
+    <th class="message">
       Message
-    </th>
-    <th>
-      Ocurrences
     </th>
     <th>
       First Happened At
@@ -26,37 +28,35 @@ Order:
       Last Happened At
     </th>
     <th>
-      Actions
+      Ocurrences
     </th>
     <th>
+      Actions
     </th>
   </tr>
   <% for wexception in @wexceptions %>
     <tr id="wexception_<%= wexception.id %>">
-      <td>
+      <td class="kind">
         <%= wexception.kind %>
       </td>
-      <td>
+      <td class="message">
         <%= wexception.message %>
       </td>
-      <td>
-        <%= wexception.occurrences_count %>
-      </td>
-      <td>
+      <td class="first_happened_at">
         <%= time_ago_in_words wexception.first_happened_at %> ago
       </td>
-      <td>
+      <td class="last_happened_at">
         <%= time_ago_in_words wexception.last_happened_at %> ago
       </td>
-      <td>
-        <%= state_change_links(wexception) %>
+      <td class="occurrences">
+        <%= link_to wexception.occurrences_count, "#", title: "Click to see all occurrences of this exception" %>
       </td>
-      <td>
-        <%= link_to "Occurrences", "#", class: "occurrences" %>
+      <td class="actions">
+        <%= state_change_links(wexception) %>
       </td>
     </tr>
     <tr class="occurrences">
-      <td>
+      <td colspan="6">
         <%= render 'occurrences', :occurrences => wexception.occurrences %>
       </td>
     </tr>

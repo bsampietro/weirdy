@@ -7,6 +7,7 @@ module Weirdy
     STATE = {closed: 0, opened: 1, ignored: 2}
     
     def self.wcreate(exception, data={})
+      raise ArgumentError, "data argument should be a Hash" if !data.is_a? Hash
       existing_wexception = self.where(kind: exception.class.name, message: exception.message).first
       send_mail = true
       if existing_wexception

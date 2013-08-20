@@ -3,9 +3,59 @@ tr.occurrences {
   padding-left: 20px;
 }
 
-td { border: 1px solid #ccc; }
-th { border: 1px solid #ccc; }
+tr.occurrences td {
+  max-width: 1000px;
+  overflow: scroll;
+}
+
+td.kind {
+  font-weight: bold;
+}
+
+td.message {
+  font-style: italic;
+  font-size: 14px;
+}
+
+td.actions {
+  width: 5em;
+}
+
+td.kind, td.first_happened_at, td.last_happened_at, td.occurrences, td.actions {
+  text-align: center;
+}
+
+table { 
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td { 
+  border: 1px solid #666;
+  padding: 8px;
+}
+
+th { 
+  border: 1px solid #666; 
+  padding: 8px;
+  background-color: #ccc;
+}
 
 .occurrence.hidden {
   display: none;
+}
+
+.container {
+	margin: 0px auto;
+	width: 90%;
+}
+
+.filters {
+  margin: 10px auto;
+  width: 75%;
+  font-size: 18px;
+}
+
+div.show, div.order {
+  display: inline;
 }

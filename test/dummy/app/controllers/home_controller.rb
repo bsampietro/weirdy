@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    raise ArgumentError, "sick Fuck"
+    raise "mother of all sheets"
   end
 end
