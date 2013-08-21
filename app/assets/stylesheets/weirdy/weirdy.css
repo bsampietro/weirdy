@@ -18,7 +18,15 @@ td.message {
 }
 
 td.actions {
-  width: 5em;
+  width: 6em;
+}
+
+td.occurrences {
+  width: 6em;
+}
+
+td.first_happened_at, td.last_happened_at {
+  width: 6em;
 }
 
 td.kind, td.first_happened_at, td.last_happened_at, td.occurrences, td.actions {
