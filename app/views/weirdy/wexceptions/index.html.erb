@@ -1,12 +1,12 @@
 <div class="filters">
   <div class="show">
-    Show:
+    <span class="label">Show</span>:
     <%= link_to_if params[:state] != "opened" && params[:state].present?, "Opened", root_url('state' => 'opened') %>
     <%= link_to_if params[:state] != "closed" || params[:state].blank?, "Closed", root_url('state' => 'closed') %>
     <%= link_to_if params[:state] != "ignored" || params[:state].blank?, "Ignored", root_url('state' => 'ignored') %>
-  </div> | 
+  </div>
   <div class="order">
-    Order:
+    <span class="label">Order by</span>:
     <%= link_to_if params[:order] != "last_happened_at" && params[:order].present?, 
       "Last Happened At", append_query_params('order' => 'last_happened_at') %>
     <%= link_to_if params[:order] != "occurrences", 
@@ -15,10 +15,10 @@
 </div>
 <table>
   <tr>
-    <th class="kind">
+    <th>
       Kind
     </th>
-    <th class="message">
+    <th>
       Message
     </th>
     <th>

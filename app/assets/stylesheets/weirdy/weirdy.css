@@ -59,11 +59,21 @@ th {
 }
 
 .filters {
-  margin: 10px auto;
-  width: 75%;
-  font-size: 18px;
+  margin: 20px auto;
+  width: 100%;
+  /* font-size: 0.8em; */
+  text-align: center;
 }
 
-div.show, div.order {
+.filters a, .filters a:visited {
+  color: blue;
+}
+
+.show, .order {
   display: inline;
+  margin: 15px;
+}
+
+.show .label, .order .label {
+  font-size: 1.2em;
 }

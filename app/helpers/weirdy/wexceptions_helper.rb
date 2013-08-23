@@ -6,11 +6,11 @@ module Weirdy
       ignore_link = link_to("Ignore", state_wexception_path(wexception, state: 'ignored'), method: :put, remote: true)
       case wexception.state
         when Weirdy::Wexception::STATE[:closed]
-          raw "#{open_link} #{ignore_link}"
+          raw "#{open_link} &nbsp; #{ignore_link}"
         when Weirdy::Wexception::STATE[:opened]
-          raw "#{close_link} #{ignore_link}"
+          raw "#{close_link} &nbsp; #{ignore_link}"
         when Weirdy::Wexception::STATE[:ignored]
-          raw "#{close_link} #{open_link}"
+          raw "#{close_link} &nbsp; #{open_link}"
       end
     end
   end
