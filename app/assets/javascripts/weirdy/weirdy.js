@@ -7,6 +7,11 @@ weirdy.wexceptionsIndex = {
       return false;
     });
     
+    $(".occurrences .actions a.hide").click(function(){
+      $(this).parents('tr.occurrences').toggle(400);
+      return false;
+    });
+    
     $("a.prev").click(function(){
       var $current = $(this).parents(".actions").next().find(".occurrence:not(.hidden)")
       var $prev = $current.prev();
@@ -26,5 +31,20 @@ weirdy.wexceptionsIndex = {
       }
       return false;
     });
+    
+    $(".backtrace .see-more a").click(function(){
+      var $more = $(this).parents('.backtrace').find('.more');
+      if ($more.hasClass("hidden")){
+        $more.removeClass("hidden");
+        $(this).html("Shorten Stack...");
+      }else{
+        $more.addClass("hidden");
+        $(this).html("See Complete Stack...");
+        var occurrence_position = $(this).parents('tr').prev().offset().top;
+        $("body").scrollTop(occurrence_position);
+      }
+      return false;
+    });
+    
   }
 };

@@ -1,3 +1,24 @@
+body {
+  /* font-family: Helvetica, Arial; */
+  /* font-family: Arial; */
+  /* font-family: "Times New Roman", Times, serif; */
+}
+
+/* a {
+  text-decoration: none;
+} */
+
+a:visited {
+  color: blue;
+}
+
+.hr {
+  margin: 10px auto;
+  width: 90%;
+  height: 0;
+  border: 1px solid black;
+}
+
 tr.occurrences {
   display: none;
   padding-left: 20px;
@@ -49,7 +70,9 @@ th {
   background-color: #ccc;
 }
 
-.occurrence.hidden {
+/* Filters */
+
+.hidden {
   display: none;
 }
 
@@ -59,14 +82,8 @@ th {
 }
 
 .filters {
-  margin: 20px auto;
-  width: 100%;
-  /* font-size: 0.8em; */
+  margin: 20px 0;
   text-align: center;
-}
-
-.filters a, .filters a:visited {
-  color: blue;
 }
 
 .show, .order {
@@ -77,3 +94,55 @@ th {
 .show .label, .order .label {
   font-size: 1.2em;
 }
+
+
+/* Occurrences details */
+
+.occurrences .actions {
+  margin: 10px 0 5px 0;
+  text-align: center;
+}
+
+
+.occurrence .number {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.occurrence .time .label {
+  font-weight: bold;
+}
+
+.backtrace {
+  white-space: nowrap;
+  margin-top: 5px;
+}
+
+.backtrace .see-more {
+  margin-top: 5px;
+  text-align: center;
+}
+
+/* .backtrace .see-more a {
+  background-color: gray;
+} */
+
+.context-data .label {
+  font-weight: bold;
+}
+
+.context-data h3 {
+  text-align: center;
+}
+
+/* Visited Links */
+
+/* .occurrences .actions a:visited{
+  color: blue;
+}
+
+.filters a, .filters a:visited {
+  color: blue; 
+} */
+

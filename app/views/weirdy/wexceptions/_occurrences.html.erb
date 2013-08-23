@@ -1,30 +1,42 @@
 <div class="actions">
-  <%= link_to "<=", "#", class: "prev" %>
-  <%= link_to "=>", "#", class: "next" %>
+  <%= link_to "< Prev", "#", class: "prev" %> &nbsp;
+  <%= link_to "Next >", "#", class: "next" %> &nbsp;
+  <%= link_to "Hide", "#", class: "hide" %>
 </div>
 <div>
   <% occurrences_length = occurrences.length %>
   <% occurrences.each_with_index do |occurrence, i| %>
     <% display = i == 0 ? "" : " hidden" %>
     <div class="occurrence<%= display %>">
-      <div>
-        <%= i + 1 %> of <%= occurrences_length %> occurrences
+      <div class="number">
+        <%= i + 1 %> of <%= occurrences_length %> Occurrences
       </div>
       
-      <div>
-        Happened: <%= occurrence.happened_at %>
-      </div>  
-              
-      <div>
-        Data: <br/>
-        <% occurrence.data.each do |key, value| %>
-          <p><%= key %>: <%= value %> </p>
-        <% end %>
+      <div class="time">
+        <span class="label">Happened At</span>: <%= occurrence.happened_at.strftime("%b %d, %Y - %H:%M:%S") %> (<%= time_ago_in_words occurrence.happened_at %> ago)
       </div>
-
-      <div>
-        Backtrace: <br/>
-        <%= raw occurrence.backtrace.join("<br/>") %>
+      
+      <div class="backtrace">
+        <%= raw occurrence.backtrace[0..15].join("<br>") %>
+        <div class="more hidden">
+          <%= raw occurrence.backtrace[16..-1].join("<br>") %>
+        </div>
+        <div class="see-more">
+          <%= link_to "See Complete Stack...", "#", class: "see-more" %>
+        </div>
+      </div>
+      
+      <div class="hr"></div>
+      
+      <div class="context-data">
+        <h3>Context Data</h3>
+        <% if occurrence.data.present? %>
+          <% occurrence.data.each do |key, value| %>
+            <p><span class="label"><%= key %></span>: <%= value %> </p>
+          <% end %>
+        <% else %>
+          No context data logged.
+        <% end %>
       </div>
     </div>
   <% end %>
