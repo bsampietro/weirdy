@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    raise "mother of all sheets"
+    raise "workkssss!!4"
   end
 end
