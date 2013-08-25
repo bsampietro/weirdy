@@ -8,7 +8,7 @@ module Weirdy
   class Config
     class << self
       attr_accessor :daily_mail, :mail_queuer, :mail_sender, :mail_recipients, :app_name, :exceptions_per_page,
-        :mail_sending_proc
+        :mail_sending_proc, :auth
       
       def configure(&blk)
         yield self
@@ -20,5 +20,6 @@ module Weirdy
     self.app_name = "My application"
     self.exceptions_per_page = 10
     self.mail_sending_proc = lambda { |email| email.deliver } # email.delay.deliver in the case of delayed job
+    self.auth = "bruno/sampietro" # lambda { |controller| controller.session[:user_id].present? }
   end
 end
