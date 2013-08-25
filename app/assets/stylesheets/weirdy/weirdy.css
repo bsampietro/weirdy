@@ -38,20 +38,9 @@ td.message {
   font-size: 14px;
 }
 
-td.actions {
-  width: 6em;
-}
-
-td.occurrences {
-  width: 6em;
-}
-
-td.first_happened_at, td.last_happened_at {
-  width: 6em;
-}
-
 td.kind, td.first_happened_at, td.last_happened_at, td.occurrences, td.actions {
   text-align: center;
+  white-space: nowrap;
 }
 
 table { 
@@ -61,7 +50,7 @@ table {
 
 td { 
   border: 1px solid #666;
-  padding: 8px;
+  padding: 0.5em;
 }
 
 th { 
