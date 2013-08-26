@@ -21,4 +21,8 @@ class ActiveSupport::TestCase
     wexception = Weirdy::Wexception.wcreate(exception)
     return Weirdy::Wexception.find(wexception.id)
   end
+  
+  def http_basic_auth_login(user, password)
+    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user, password)
+  end  
 end

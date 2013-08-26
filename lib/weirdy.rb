@@ -7,7 +7,7 @@ module Weirdy
   
   class Config
     class << self
-      attr_accessor :daily_mail, :mail_sender, :mail_recipients, :app_name, :exceptions_per_page,
+      attr_accessor :mail_sender, :mail_recipients, :app_name, :exceptions_per_page,
         :mail_sending_proc, :auth, :use_main_app_controller, :shown_stack
       
       def configure(&blk)
@@ -15,7 +15,6 @@ module Weirdy
       end
     end
     #self.mail_recipients = "noone@nodomain.com" # will send if this field is present
-    self.daily_mail = false
     self.mail_sender = "Weirdy <bugs@weirdyapp.com>"
     self.app_name = "My application"
     self.exceptions_per_page = 10
