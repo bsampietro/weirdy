@@ -5,5 +5,9 @@ module Weirdy
       present_params.merge!(new_params)
       request.path + '?' + present_params.to_query
     end
+    
+    def weirdy_time_format(time)
+      "#{time.strftime('%b %d, %Y - %H:%M:%S')} (#{time_ago_in_words time} ago)"
+    end
   end
 end

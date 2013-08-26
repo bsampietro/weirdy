@@ -13,7 +13,7 @@
       </div>
       
       <div class="time">
-        <span class="label">Happened At</span>: <%= occurrence.happened_at.strftime("%b %d, %Y - %H:%M:%S") %> (<%= time_ago_in_words occurrence.happened_at %> ago)
+        <span class="label">Happened At</span>: <%= weirdy_time_format occurrence.happened_at %>
       </div>
       
       <div class="backtrace">

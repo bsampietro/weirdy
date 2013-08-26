@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    session['hola'] = "hola"
-    raise "workkssss!!4"
+    raise "workkssss!!7"
   end
 end

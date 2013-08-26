@@ -1,1 +1,14 @@
-<%= @wexception.inspect %>
+KIND:
+<%= @wexception.kind %>
+
+MESSAGE:
+<%= @wexception.message %>
+
+LAST HAPPENED AT:
+<%= weirdy_time_format @wexception.last_happened_at %>
+
+FIRST HAPPENED AT:
+<%= weirdy_time_format @wexception.first_happened_at %>
+
+OCCURRENCES:
+<%= @wexception.occurrences %>
