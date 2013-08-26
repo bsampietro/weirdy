@@ -22,10 +22,10 @@
       Message
     </th>
     <th>
-      First Happened At
+      Last Happened At
     </th>
     <th>
-      Last Happened At
+      First Happened At
     </th>
     <th>
       Ocurrences
@@ -42,11 +42,11 @@
       <td class="message">
         <%= wexception.message %>
       </td>
-      <td class="first_happened_at">
-        <%= time_ago_in_words wexception.first_happened_at %> ago
-      </td>
       <td class="last_happened_at">
         <%= time_ago_in_words wexception.last_happened_at %> ago
+      </td>
+      <td class="first_happened_at">
+        <%= time_ago_in_words wexception.first_happened_at %> ago
       </td>
       <td class="occurrences">
         <%= link_to wexception.occurrences_count, "#", title: "Click to see all occurrences of this exception" %>
