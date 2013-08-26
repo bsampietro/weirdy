@@ -1,5 +1,5 @@
 module Weirdy
-  class ApplicationController < ActionController::Base
+  class ApplicationController < Weirdy::Config.use_main_app_controller ? ::ApplicationController : ActionController::Base
     before_filter :auth
     
     private

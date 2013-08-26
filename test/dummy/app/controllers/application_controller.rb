@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
        :method => request.method,
        :xhr => request.xhr?})
   end
+  
+  def current_user
+    User.first
+  end
 end

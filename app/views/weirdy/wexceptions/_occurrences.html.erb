@@ -17,9 +17,9 @@
       </div>
       
       <div class="backtrace">
-        <%= raw occurrence.backtrace[0..15].join("<br>") %>
+        <%= raw occurrence.backtrace[0..Weirdy::Config.shown_stack].join("<br>") %>
         <div class="more hidden">
-          <%= raw occurrence.backtrace[16..-1].join("<br>") %>
+          <%= raw occurrence.backtrace[(Weirdy::Config.shown_stack + 1)..-1].join("<br>") %>
         </div>
         <div class="see-more">
           <%= link_to "See Complete Stack...", "#", class: "see-more" %>
