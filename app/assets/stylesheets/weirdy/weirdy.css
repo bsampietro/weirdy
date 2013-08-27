@@ -12,6 +12,11 @@ a:visited {
   color: blue;
 }
 
+em {
+  font-weight: bold;
+  font-style: normal;
+}
+
 .hr {
   margin: 10px auto;
   width: 90%;
@@ -105,7 +110,7 @@ th {
 
 .backtrace {
   white-space: nowrap;
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 .backtrace .see-more {

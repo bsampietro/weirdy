@@ -13,5 +13,26 @@ module Weirdy
           raw "#{close_link} &nbsp; #{open_link}"
       end
     end
+    
+    def backtrace_display(bt)
+      if Weirdy::Config.stack_mark.is_a?(Array)
+        raw(bt.map do |line| 
+          includes = false
+          Weirdy::Config.stack_mark.each do |mark|
+            if line.include?(mark)
+              includes = true
+              break
+            end
+          end
+          if includes
+            "<em>#{line}</em>"
+          else
+            line
+          end
+        end.join("<br>"))
+      else
+        raw bt.join("<br>")
+      end
+    end
   end
 end
