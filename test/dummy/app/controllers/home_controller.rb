@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    raise "workkssss!!7"
+    User.first.admin?
   end
 end

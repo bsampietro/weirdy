@@ -14,8 +14,6 @@ module Weirdy
         authenticate_or_request_with_http_basic("Weirdy") do |typed_username, typed_password|
           typed_username == username && typed_password == password
         end
-      else
-        render :nothing => true
       end
     end
   end

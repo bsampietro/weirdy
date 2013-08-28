@@ -3,12 +3,11 @@ class ApplicationController < ActionController::Base
   
   rescue_from Exception do |exception|
     Weirdy.create_exception(exception,
-      {:session => session.inspect, 
-       :cookies => cookies.inspect, 
+      {:session => session.inspect,  
        :params => params,
        :url => request.url, 
-       :method => request.method,
-       :xhr => request.xhr?})
+       :method => request.method})
+    raise exception
   end
   
   def current_user
