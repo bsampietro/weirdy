@@ -15,6 +15,7 @@ module Weirdy
     end
     
     def backtrace_display(bt)
+      return '' if bt.blank?
       if Weirdy::Config.stack_mark.is_a?(Array)
         raw(bt.map do |line| 
           includes = false
