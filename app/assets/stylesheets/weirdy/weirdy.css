@@ -118,10 +118,6 @@ th {
   text-align: center;
 }
 
-/* .backtrace .see-more a {
-  background-color: gray;
-} */
-
 .context-data .label {
   font-weight: bold;
 }
@@ -130,13 +126,11 @@ th {
   text-align: center;
 }
 
-/* Visited Links */
+/* Pagination */
 
-/* .occurrences .actions a:visited{
-  color: blue;
+.pagination {
+  margin-top: 25px;
+  text-align: center;
 }
 
-.filters a, .filters a:visited {
-  color: blue; 
-} */
 
