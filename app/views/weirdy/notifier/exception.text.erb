@@ -11,7 +11,7 @@ FIRST HAPPENED AT:
 <%= weirdy_time_format @wexception.first_happened_at %>
 
 OCCURRENCES:
-<%= @wexception.occurrences %>
+<%= @wexception.occurrences.size %>
 
 BACKTRACE:
 <%= @wexception.backtrace.to_a.join("\n") %>

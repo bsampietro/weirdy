@@ -46,7 +46,7 @@ module Weirdy
         wexception.occurrences.build(exception_occurrence_hash(exception, data))
         wexception.save!
       end
-      Weirdy::Config.mail_sending_proc.call(Notifier.exception(wexception)) if send_mail && Weirdy::Config.mail_recipients.present?
+      Weirdy::Config.mail_sending_proc.call(Notifier.exception(wexception), wexception) if send_mail && Weirdy::Config.mail_recipients.present?
       return wexception
     end
     

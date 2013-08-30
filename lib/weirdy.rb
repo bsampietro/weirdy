@@ -8,6 +8,10 @@ module Weirdy
     Wexception.wcreate(exception, data)
   end
   
+  def self.notify_exception(wexception)
+    Notifier.exception(wexception).deliver
+  end
+  
   class Config
     class << self
       attr_accessor :mail_recipients, 
@@ -29,7 +33,7 @@ module Weirdy
     self.app_name = "My application"
     self.exceptions_per_page = 20
     self.shown_stack = 15
-    self.mail_sending_proc = lambda { |email| email.deliver }
+    self.mail_sending_proc = lambda { |email, wexception| email.deliver }
     self.use_main_app_controller = false
     self.stack_mark = ['app/controllers', 'app/helpers', 'app/mailers', 'app/models', 'app/views']
   end

@@ -46,6 +46,11 @@ GEM
       debugger-ruby_core_source (~> 1.2.0)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
+    delayed_job (3.0.1)
+      activesupport (~> 3.0)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     hike (1.2.2)
@@ -109,6 +114,8 @@ PLATFORMS
 
 DEPENDENCIES
   debugger
+  delayed_job
+  delayed_job_active_record
   jquery-rails
   mysql2
   thin
