@@ -16,8 +16,9 @@ end
 
 class ActiveSupport::TestCase
   # creates and returns a wexception from an exception
-  def create_wexception(exception_type, message)
+  def create_wexception(exception_type, message, backtrace = 0)
     raise exception_type, message rescue exception = $!
+    exception.set_backtrace(backtrace) unless backtrace == 0
     wexception = Weirdy::Wexception.wcreate(exception)
     return Weirdy::Wexception.find(wexception.id)
   end

@@ -19,7 +19,7 @@ em {
 
 .hr {
   margin: 10px auto;
-  width: 90%;
+  width: 95%;
   height: 0;
   border: 1px solid black;
 }
@@ -104,7 +104,15 @@ th {
   margin-bottom: 15px;
 }
 
-.occurrence .time .label {
+.occurrence .message {
+  margin-bottom: 10px;
+}
+
+.occurrence .time {
+  margin-bottom: 10px;
+}
+
+.occurrence .time .label, .occurrence .message .label {
   font-weight: bold;
 }
 
@@ -122,7 +130,7 @@ th {
   font-weight: bold;
 }
 
-.context-data h3 {
+h3 {
   text-align: center;
 }
 

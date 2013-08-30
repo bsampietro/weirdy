@@ -65,5 +65,13 @@ module Weirdy
       assert_response :success
       assert wexception.state?(:closed)
     end
+    
+    test "should handle exceptions with null backtrace" do
+      create_wexception(RuntimeError, "Something is wrong", nil)
+      Weirdy::Config.auth = "admin/123"
+      http_basic_auth_login("admin", "123")
+      get :index, use_route: :weirdy
+      assert_response :success
+    end
   end
 end

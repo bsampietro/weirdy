@@ -2,7 +2,7 @@ KIND:
 <%= @wexception.kind %>
 
 MESSAGE:
-<%= @wexception.message %>
+<%= @wexception.last_message %>
 
 LAST HAPPENED AT:
 <%= weirdy_time_format @wexception.last_happened_at %>
@@ -12,3 +12,6 @@ FIRST HAPPENED AT:
 
 OCCURRENCES:
 <%= @wexception.occurrences %>
+
+BACKTRACE:
+<%= @wexception.backtrace.to_a.join("\n") %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130825160514) do
+ActiveRecord::Schema.define(:version => 20130829225604) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -21,8 +21,7 @@ ActiveRecord::Schema.define(:version => 20130825160514) do
 
   create_table "weirdy_wexception_occurrences", :force => true do |t|
     t.integer  "wexception_id"
-    t.text     "backtrace"
-    t.string   "backtrace_hash"
+    t.string   "message"
     t.datetime "happened_at"
     t.text     "data"
   end
@@ -32,14 +31,16 @@ ActiveRecord::Schema.define(:version => 20130825160514) do
 
   create_table "weirdy_wexceptions", :force => true do |t|
     t.string   "kind"
-    t.string   "message"
+    t.string   "last_message"
     t.integer  "occurrences_count"
     t.integer  "state"
     t.datetime "first_happened_at"
     t.datetime "last_happened_at"
+    t.text     "backtrace"
+    t.string   "backtrace_hash"
   end
 
-  add_index "weirdy_wexceptions", ["kind", "message"], :name => "index_weirdy_wexceptions_on_kind_and_message"
+  add_index "weirdy_wexceptions", ["kind", "backtrace_hash"], :name => "index_weirdy_wexceptions_on_kind_and_backtrace_hash"
   add_index "weirdy_wexceptions", ["last_happened_at"], :name => "index_weirdy_wexceptions_on_last_happened_at"
   add_index "weirdy_wexceptions", ["occurrences_count"], :name => "index_weirdy_wexceptions_on_occurrences_count"
   add_index "weirdy_wexceptions", ["state"], :name => "index_weirdy_wexceptions_on_state"

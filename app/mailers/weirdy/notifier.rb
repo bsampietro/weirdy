@@ -6,7 +6,7 @@ module Weirdy
     def exception(wexception)
       @wexception = wexception
       mail :to => Weirdy::Config.mail_recipients, 
-           :subject => "#{Weirdy::Config.app_name}: #{wexception.kind} - \"#{wexception.message}\""
+           :subject => "#{Weirdy::Config.app_name}: #{wexception.kind} - \"#{wexception.last_message}\""
     end
   end
 end

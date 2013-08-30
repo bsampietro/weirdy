@@ -4,26 +4,20 @@
   <%= link_to "Hide", "#", class: "hide" %>
 </div>
 <div>
-  <% occurrences_length = occurrences.length %>
-  <% occurrences.each_with_index do |occurrence, i| %>
+  <% occurrences_length = wexception.occurrences.length %>
+  <% wexception.occurrences.each_with_index do |occurrence, i| %>
     <% display = i == 0 ? "" : " hidden" %>
     <div class="occurrence<%= display %>">
       <div class="number">
         <%= i + 1 %> of <%= occurrences_length %> Occurrences
       </div>
       
-      <div class="time">
-        <span class="label">Happened At</span>: <%= weirdy_time_format occurrence.happened_at %>
+      <div class="message">
+        <span class="label">Message</span>: <%= occurrence.message %>
       </div>
       
-      <div class="backtrace">
-        <%= backtrace_display occurrence.backtrace[0..Weirdy::Config.shown_stack] %>
-        <div class="more hidden">
-          <%= backtrace_display occurrence.backtrace[(Weirdy::Config.shown_stack + 1)..-1] %>
-        </div>
-        <div class="see-more">
-          <%= link_to "See Complete Stack...", "#", class: "see-more" %>
-        </div>
+      <div class="time">
+        <span class="label">Happened At</span>: <%= weirdy_time_format occurrence.happened_at %>
       </div>
       
       <div class="hr"></div>
@@ -41,3 +35,22 @@
     </div>
   <% end %>
 </div>
+
+<div class="hr"></div>
+
+<h3>Backtrace</h3>
+
+<div class="backtrace">
+  <% if wexception.backtrace.present? %>
+    <%= backtrace_display wexception.backtrace[0..Weirdy::Config.shown_stack] %>
+    <div class="more hidden">
+      <%= backtrace_display wexception.backtrace[(Weirdy::Config.shown_stack + 1)..-1] %>
+    </div>
+    <div class="see-more">
+      <%= link_to "See Complete Stack...", "#", class: "see-more" %>
+    </div>
+  <% else %>
+    No backtrace associated with this exception.
+  <% end %>
+</div>
+
