@@ -30,7 +30,6 @@ tr.occurrences {
 }
 
 tr.occurrences td {
-  max-width: 1000px;
   overflow: scroll;
 }
 
@@ -41,6 +40,10 @@ td.kind {
 td.message {
   font-style: italic;
   font-size: 14px;
+}
+
+td.raised_in {
+  text-align: center;
 }
 
 td.kind, td.first_happened_at, td.last_happened_at, td.occurrences, td.actions {

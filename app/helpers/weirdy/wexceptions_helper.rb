@@ -16,23 +16,27 @@ module Weirdy
     
     def backtrace_display(bt)
       return '' if bt.blank?
-      if Weirdy::Config.stack_mark.is_a?(Array)
-        raw(bt.map do |line| 
-          includes = false
-          Weirdy::Config.stack_mark.each do |mark|
-            if line.include?(mark)
-              includes = true
-              break
-            end
-          end
-          if includes
-            "<em>#{line}</em>"
-          else
-            line
-          end
-        end.join("<br>"))
+      raw(bt.map do |line|
+        if Wexception.application_line?(line)
+          "<em>#{line}</em>"
+        else
+          line
+        end
+      end.join("<br>"))
+    end
+    
+    def display_raised_in(raised_in)
+      return '-' if raised_in.blank?
+      max_length = 60
+      half = max_length / 2
+      if raised_in.length > max_length
+        method = raised_in.split("#")
+        length0 = method[0].length
+        method[0] = method[0][(length0 - half)..length0]
+        method[1] = method[1][0..half]
+        "...#{method.join('#')}..."
       else
-        raw bt.join("<br>")
+        raised_in
       end
     end
   end

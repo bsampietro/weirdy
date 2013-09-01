@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
-    User.first.admin?
+    self.cola
+    #User.first.admin?
   end
 end

@@ -2,6 +2,16 @@ require 'test_helper'
 
 module Weirdy
   class WexceptionTest < ActiveSupport::TestCase
+    def setup
+      Weirdy::Config.app_directory = "mydir"
+      Weirdy::Config.mail_sending_proc = lambda { |email, wexception| email.deliver }
+      Weirdy::Config.mail_recipients = ["doug@mailer.com", "andrew@mailer.com"]
+    end
+    
+    def teardown
+      
+    end
+    
     test "should create wexception from simple exception with proper attributes" do
       wexception = create_wexception(RuntimeError, "Something is wrong")
       assert_equal "RuntimeError", wexception.kind
@@ -15,15 +25,15 @@ module Weirdy
       assert_equal 1, wexception.occurrences.count
     end
     
-    test "should group exceptions by type and stack" do
-      5.times { |i| create_wexception(RuntimeError, "Something is wrong", ["/some/value/inthestack.rb"]) }
+    test "should group exceptions by type and application method" do
+      5.times { |i| create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"]) }
       assert_equal 1, Wexception.count
       wexception = Wexception.first
       assert_equal 5, wexception.occurrences.count
     end
     
-    test "different stack is treated as a different wexception" do
-      5.times { |i| create_wexception(RuntimeError, "Something is wrong", [i.to_s]) }
+    test "different application method is treated as a different wexception" do
+      5.times { |i| create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index#{i}'"]) }
       assert_equal 5, Wexception.count
     end
     
@@ -39,10 +49,10 @@ module Weirdy
     end
     
     test "should re open exception if closed and reraised" do
-      wexception = create_wexception(RuntimeError, "Something is wrong", ["/some/value/inthestack.rb"])
+      wexception = create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
       wexception.change_state(:closed)
       assert wexception.state?(:closed)
-      create_wexception(RuntimeError, "Something is wrong", ["/some/value/inthestack.rb"])
+      create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
       wexception = Wexception.find(wexception.id)
       assert wexception.state?(:opened)
     end
@@ -59,28 +69,42 @@ module Weirdy
       assert_equal Weirdy::Config.mail_recipients, mail.to
     end
     
-    test "should not send an email if exception already exists and opened" do
-      create_wexception(RuntimeError, "Something is wrong", ["/some/value/inthestack.rb"])
+    test "should not send an email if exception already exists and opened" do      
+      create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
       original_mail = ActionMailer::Base.deliveries.last
       assert_not_nil original_mail
-      create_wexception(RuntimeError, "Something is wrong", ["/some/value/inthestack.rb"])
+      create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
       new_mail = ActionMailer::Base.deliveries.last
       assert original_mail.object_id == new_mail.object_id
     end
     
     test "should send an email if exception already exists but closed" do
-      wexception = create_wexception(RuntimeError, "Something is wrong", ["/some/value/inthestack.rb"])
+      wexception = create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
       original_mail = ActionMailer::Base.deliveries.last
       assert_not_nil original_mail
       wexception.change_state(:closed)
-      create_wexception(RuntimeError, "Something is wrong", ["/some/value/inthestack.rb"])
+      create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
       new_mail = ActionMailer::Base.deliveries.last
       assert original_mail.object_id != new_mail.object_id
     end
     
     test "should handle correctly exceptions without backtraces" do
       wexception = create_wexception(RuntimeError, "Something is wrong", nil)
-      assert_nil wexception.backtrace
+      assert_nil wexception.occurrences.first.backtrace
+    end
+    
+    test "should order only by exception type when not setting app directory" do
+      Weirdy::Config.app_directory = nil
+      create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
+      create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `create'"])
+      create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `update'"])
+      assert_equal 1, Wexception.count
+    end
+    
+    test "should group correctly exceptions without backtraces" do
+      wexception = create_wexception(RuntimeError, "Something is wrong", nil)
+      wexception = create_wexception(RuntimeError, "Something is wrong", nil)
+      assert_equal 1, Wexception.count
     end
   end
 end

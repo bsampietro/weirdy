@@ -1,7 +1,5 @@
 module Weirdy
   class Wexception < ActiveRecord::Base
-    serialize :backtrace
-    
     has_many :occurrences, class_name: "WexceptionOccurrence", order: "happened_at DESC"
     
     attr_accessible :kind, 
@@ -11,14 +9,13 @@ module Weirdy
                     :first_happened_at, 
                     :last_happened_at, 
                     :occurrences, 
-                    :backtrace, 
-                    :backtrace_hash
+                    :raised_in
   
     STATE = {closed: 0, opened: 1, ignored: 2}
     
     def self.wcreate(exception, data={})
       raise ArgumentError, "data argument should be a Hash" if !data.is_a? Hash
-      existing_wexception = self.where(kind: exception.class.name, backtrace_hash: self.backtrace_hash(exception.backtrace)).first
+      existing_wexception = self.where(kind: exception.class.name, raised_in: self.raised_in(exception.backtrace)).first
       send_mail = true
       if existing_wexception
         existing_wexception.occurrences_count += 1
@@ -40,8 +37,7 @@ module Weirdy
           state: STATE[:opened],
           first_happened_at: Time.zone.now,
           last_happened_at: Time.zone.now,
-          backtrace: exception.backtrace,
-          backtrace_hash: self.backtrace_hash(exception.backtrace)
+          raised_in: self.raised_in(exception.backtrace),
         )
         wexception.occurrences.build(exception_occurrence_hash(exception, data))
         wexception.save!
@@ -53,6 +49,7 @@ module Weirdy
     def self.exception_occurrence_hash(exception, data)
       {
         message: exception.message,
+        backtrace: exception.backtrace,
         happened_at: Time.zone.now,
         data: data
       }
@@ -62,9 +59,23 @@ module Weirdy
       where(state: STATE[state.to_sym])
     end
     
-    def self.backtrace_hash(backtrace)
-      return nil if backtrace.blank?
-      Digest::MD5.hexdigest(backtrace.join(''))
+    def self.raised_in(backtrace)
+      return nil if backtrace.blank? || Weirdy::Config.app_directory.blank?
+      last_line = nil
+      backtrace.each do |line|
+        if self.application_line?(line)
+          last_line = line
+          break
+        end
+      end
+      return nil if last_line.nil?
+      raised_in = last_line.gsub(/:\d+:in\s+`/, "#").gsub("'", "")
+      raised_in[(raised_in.index(Weirdy::Config.app_directory) + Weirdy::Config.app_directory.length + 1)..-1]
+    end
+    
+    def self.application_line?(line)
+      return false if Weirdy::Config.app_directory.blank?
+      line.include? Weirdy::Config.app_directory
     end
     
     def state?(state)

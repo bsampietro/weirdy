@@ -68,6 +68,7 @@ module Weirdy
     
     test "should handle exceptions with null backtrace" do
       create_wexception(RuntimeError, "Something is wrong", nil)
+      create_wexception(RuntimeError, "Something is wrong", nil)
       Weirdy::Config.auth = "admin/123"
       http_basic_auth_login("admin", "123")
       get :index, use_route: :weirdy

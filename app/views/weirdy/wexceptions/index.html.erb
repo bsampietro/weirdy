@@ -22,6 +22,9 @@
       Last Exception Message
     </th>
     <th>
+      Raised In
+    </th>
+    <th>
       Last Happened At
     </th>
     <th>
@@ -42,6 +45,9 @@
       <td class="message">
         <%= wexception.last_message %>
       </td>
+      <td class="raised_in" title="<%= CGI.escapeHTML wexception.raised_in.to_s %>">
+        <%= display_raised_in(wexception.raised_in) %>
+      </td>
       <td class="last_happened_at">
         <%= time_ago_in_words wexception.last_happened_at %> ago
       </td>
@@ -56,7 +62,7 @@
       </td>
     </tr>
     <tr class="occurrences">
-      <td colspan="6">
+      <td colspan="7">
         <%= render 'occurrences', :wexception => wexception %>
       </td>
     </tr>

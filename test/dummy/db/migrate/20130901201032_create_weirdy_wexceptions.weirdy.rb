@@ -6,15 +6,14 @@ class CreateWeirdyWexceptions < ActiveRecord::Migration
       t.string :last_message
       t.integer :occurrences_count
       t.integer :state
+      t.string :raised_in
       t.timestamp :first_happened_at
       t.timestamp :last_happened_at
-      t.text :backtrace
-      t.string :backtrace_hash
     end
     
     add_index :weirdy_wexceptions, :last_happened_at
     add_index :weirdy_wexceptions, :occurrences_count
     add_index :weirdy_wexceptions, :state
-    add_index :weirdy_wexceptions, [:kind, :backtrace_hash]
+    add_index :weirdy_wexceptions, [:kind, :raised_in]
   end
 end

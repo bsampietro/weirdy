@@ -22,7 +22,7 @@ module Weirdy
                     :shown_stack,
                     :mail_sending_proc, 
                     :use_main_app_controller, 
-                    :stack_mark
+                    :app_directory
                     
       
       def configure(&blk)
@@ -35,6 +35,5 @@ module Weirdy
     self.shown_stack = 15
     self.mail_sending_proc = lambda { |email, wexception| email.deliver }
     self.use_main_app_controller = false
-    self.stack_mark = ['app/controllers', 'app/helpers', 'app/mailers', 'app/models', 'app/views']
   end
 end
