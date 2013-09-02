@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   rescue_from Exception do |exception|
-    Weirdy.create_exception(exception,
+    Weirdy.log_exception(exception,
       {:session => session.inspect,  
        :params => params,
        :url => request.url, 

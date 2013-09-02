@@ -4,7 +4,7 @@ require "jquery-rails"
 require "weirdy/engine"
 
 module Weirdy
-  def self.create_exception(exception, data = {})
+  def self.log_exception(exception, data = {})
     Wexception.wcreate(exception, data)
   end
   
