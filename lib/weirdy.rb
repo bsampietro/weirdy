@@ -20,10 +20,8 @@ module Weirdy
                     :exceptions_per_page,
                     :shown_stack,
                     :notifier_proc, 
-                    :use_main_app_controller, 
-                    :app_directories
+                    :use_main_app_controller
                     
-      
       def configure(&blk)
         yield self
       end
@@ -34,6 +32,5 @@ module Weirdy
     self.shown_stack = 15
     self.notifier_proc = lambda { |email, wexception| email.deliver }
     self.use_main_app_controller = false
-    self.app_directories = ["app/controllers", "app/helpers", "app/mailers", "app/models", "app/views"]
   end
 end

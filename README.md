@@ -98,8 +98,6 @@ Weirdy::Config.auth = "admin/123"
 
 Weirdy::Config.use_main_app_controller = false
 
-Weirdy::Config.app_directories = ["app/controllers", "app/helpers", "app/mailers", "app/models", "app/views"]
-
 Weirdy::Config.mail_sender = "Weirdy <bugs@weirdyapp.com>"
 
 Weirdy::Config.app_name = "My application"
@@ -114,58 +112,45 @@ Weirdy::Config.notifier_proc = lambda { |email, wexception| email.deliver }
 ### Options
 
 #### mail_recipients
-*String or Array*
+*String or Array*  
 The recipients of the email, this field could be a single email or an array of emails.
 If this field is empty, weirdy won't send any emails.
 
 #### auth
-*String or Proc*
+*String or Proc*  
 Without an assigned value, it will allow to check weirdy without any auth. Be aware of this before deploying!  
 If it is a string in the form of "user/password" it will use http basic auth with the given user/password  
 If it is a proc, then if the proc returns true it allows access, if it return false it doesn't.  
 The proc receives the active controller as a parameter, this way you can access session and cookies with
 controller.session and controller.send(:cookies) (cookies is a private method)  
 eg: `Weirdy::Config.auth = lambda { |controller| User.find(controller.session[:user_id]).admin? }`  
-Checkout Weirdy::Config.use_main_app_controller property to be able to use the main application controller as the base 
+Checkout `use_main_app_controller` property to be able to use the main application controller as the base
 controller for the engine, so you can use your own application authentication methods.  
 eg: `Weirdy::Config.auth = lambda { |controller| controller.current_user.admin? }`
 
 #### use_main_app_controller
-*Boolean*
+*Boolean*  
 It uses the main app controller as base for the engine, so you are able to access your application authentication methods
 on the `auth` proc. Check out `auth` for an explanation.  
 
-#### app_directories
-*String or Array*
-The directories (or files) that belongs to the application.  
-This field is VERY important because it is used to find backtrace lines corresponding to your app, and based
-on that, the exceptions are grouped not only by exception type, but also with the method from which they were raised.
-(Weirdy does a simple comparison for each string on the exception stack, if the stack has any of these "app_directories" 
-strings, it is marked as an application line in the stack.)  
-Most application code in rails applications is inside these directories, that is why they are the defaults.
-But if you have code on other directories like 'lib', then adding your app directory (`Weirdy::Config.app_directories << "your_app_directory"`) could be useful.
-Don't add just 'lib' because it is a very common directory name for libraries, and weirdy will not find the application lines correctly.
-Add names that are ONLY in your application file paths and that are uniq.  
-If you set this to nil, exceptions will be only grouped by type.
-
 #### mail_sender
-*String*
+*String*  
 The sender of the email.
 
 #### app_name
-*String*
+*String*  
 Your application name.
 
 #### exceptions_per_page
-*Number*
+*Number*  
 Number of exceptions shown before paging.
 
 #### shown_stack
-*Number*
+*Number*  
 Number of lines visible at first sight on the stack.
 
 #### notifier_proc
-*Proc*
+*Proc*  
 The proc receives a mailer object and the wexception object(logged weirdy exception). By default it sends an email 
 on the request by just calling deliver on the email. But you could use this proc to run any code(notify to basecamp, etc).
 The wexception is also passed, so if you are having trouble with serializing mailer objects when using a queing library,
@@ -178,7 +163,6 @@ To avoid repeating Weirdy::Config, you can use this block as it was shown above:
 Weirdy::Config.configure do |config|
   config.mail_recipients = "bsampietro@gmail.com"
   config.auth = "admin/bruno1"
-  config.app_directories << "your_app_directory"
   config.app_name = "your app"
   #...
 end
