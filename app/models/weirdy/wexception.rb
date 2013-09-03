@@ -74,7 +74,7 @@ module Weirdy
     end
     
     def self.application_line?(line)
-      line.include? Rails.root.to_s
+      line.include?(Rails.root.to_s) && !line.include?("#{File::SEPARATOR}vendor#{File::SEPARATOR}")
     end
     
     def state?(state)
