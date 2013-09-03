@@ -3,7 +3,7 @@ require 'test_helper'
 module Weirdy
   class WexceptionTest < ActiveSupport::TestCase
     def setup
-      Weirdy::Config.app_directory = "mydir"
+      Weirdy::Config.app_directories = ["app/controllers", "app/helpers", "app/mailers", "app/models", "app/views", "mydir"]
       Weirdy::Config.mail_sending_proc = lambda { |email, wexception| email.deliver }
       Weirdy::Config.mail_recipients = ["doug@mailer.com", "andrew@mailer.com"]
     end
@@ -94,7 +94,7 @@ module Weirdy
     end
     
     test "should order only by exception type when not setting app directory" do
-      Weirdy::Config.app_directory = nil
+      Weirdy::Config.app_directories = nil
       create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `index'"])
       create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `create'"])
       create_wexception(RuntimeError, "Something is wrong", ["/some/dir/mydir/other/file.rb:3:in `update'"])

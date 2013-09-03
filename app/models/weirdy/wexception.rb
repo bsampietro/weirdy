@@ -60,7 +60,7 @@ module Weirdy
     end
     
     def self.raised_in(backtrace)
-      return nil if backtrace.blank? || Weirdy::Config.app_directory.blank?
+      return nil if backtrace.blank? || Weirdy::Config.app_directories.blank?
       last_line = nil
       backtrace.each do |line|
         if self.application_line?(line)
@@ -70,12 +70,27 @@ module Weirdy
       end
       return nil if last_line.nil?
       raised_in = last_line.gsub(/:\d+:in\s+`/, "#").gsub("'", "")
-      raised_in[(raised_in.index(Weirdy::Config.app_directory) + Weirdy::Config.app_directory.length + 1)..-1]
+      match_directory = nil
+      Weirdy::Config.app_directories.to_a.each do |directory| 
+        if raised_in.include? directory
+          match_directory = directory
+          break
+        end
+      end
+      return raised_in if match_directory.nil?
+      raised_in[raised_in.index(match_directory)..-1]
     end
     
     def self.application_line?(line)
-      return false if Weirdy::Config.app_directory.blank?
-      line.include? Weirdy::Config.app_directory
+      return false if Weirdy::Config.app_directories.blank?
+      includes = false
+      Weirdy::Config.app_directories.to_a.each do |directory|
+        if line.include? directory
+          includes = true
+          break
+        end
+      end
+      return includes
     end
     
     def state?(state)

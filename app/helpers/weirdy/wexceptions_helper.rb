@@ -32,9 +32,13 @@ module Weirdy
       if raised_in.length > max_length
         method = raised_in.split("#")
         length0 = method[0].length
+        length1 = method[1].length
         method[0] = method[0][(length0 - half)..length0]
         method[1] = method[1][0..half]
-        "...#{method.join('#')}..."
+        response = method.join('#')
+        response = "..." + response if length0 > half
+        response = response + '...' if length1 > half
+        response
       else
         raised_in
       end

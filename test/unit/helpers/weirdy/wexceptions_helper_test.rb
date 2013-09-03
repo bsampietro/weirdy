@@ -3,7 +3,7 @@ require 'test_helper'
 module Weirdy
   class WexceptionsHelperTest < ActionView::TestCase
     test "backtrace display" do
-      Weirdy::Config.app_directory = "mydir"
+      Weirdy::Config.app_directories << "mydir"
       bt1 = ["/mydir/app/helpers/something", "/gems/something", "/mydir/app/models/something"]
       display1 = backtrace_display(bt1)
       bt2 = ["/gems/something", "/gems/something2", "/gems/something3"]
