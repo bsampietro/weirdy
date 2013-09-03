@@ -113,11 +113,13 @@ Weirdy::Config.mail_sending_proc = lambda { |email, wexception| email.deliver }
 
 ### Options
 
-Weirdy::Config.mail_recipients = "batman@gothamcity.com"  
+#### mail_recipients
+*String or Array*
 The recipients of the email, this field could be a single email or an array of emails.
-If this field is empty, weirdy won't send any emails.  
+If this field is empty, weirdy won't send any emails.
 
-Weirdy::Config.auth = "admin/123"  
+#### auth
+*String or Proc*
 Without an assigned value, it will allow to check weirdy without any auth. Be aware of this before deploying!  
 If it is a string in the form of "user/password" it will use http basic auth with the given user/password  
 If it is a proc, then if the proc returns true it allows access, if it return false it doesn't.  
@@ -128,11 +130,13 @@ Checkout Weirdy::Config.use_main_app_controller property to be able to use the m
 controller for the engine, so you can use your own application authentication methods.  
 eg: Weirdy::Config.auth = lambda { |controller| controller.current_user.admin? }  
 
-Weirdy::Config.use_main_app_controller = false  
+#### use_main_app_controller
+*Boolean*
 It uses the main app controller as base for the engine, so you are able to access your application authentication methods
-on the Weirdy::Config.auth proc. Check out Weirdy::Config.auth for an explanation.  
+on the `auth` proc. Check out `auth` for an explanation.  
 
-Weirdy::Config.app_directories = ["app/controllers", "app/helpers", "app/mailers", "app/models", "app/views"]  
+#### app_directories
+*String or Array*
 The directories (or files) that belongs to the application.  
 This field is VERY important because it is used to find backtrace lines corresponding to your app, and based
 on that, the exceptions are grouped not only by exception type, but also with the method from which they were raised.
@@ -142,22 +146,27 @@ Most application code in rails applications is inside these directories, that is
 But if you have code on other directories like 'lib', then adding your app directory (Weirdy::Config.app_directories << "your_app_directory") could be useful.
 Don't add just 'lib' because it is a very common directory name for libraries, and weirdy will not find the application lines correctly.
 Add names that are ONLY in your application file paths and that are uniq.  
-If you set this to nil, exceptions will be only grouped by type.  
+If you set this to nil, exceptions will be only grouped by type.
 
-Weirdy::Config.mail_sender = "Weirdy <bugs@weirdyapp.com>"  
-The sender of the email.  
+#### mail_sender
+*String*
+The sender of the email.
 
-Weirdy::Config.app_name = "My application"  
-Your application name.  
+#### app_name
+*String*
+Your application name.
 
-Weirdy::Config.exceptions_per_page = 20  
-Number of exceptions shown before paging.  
+#### exceptions_per_page
+*Number*
+Number of exceptions shown before paging.
 
-Weirdy::Config.shown_stack = 15  
-Number of lines visible at first sight on the stack.  
+#### shown_stack
+*Number*
+Number of lines visible at first sight on the stack.
 
-Weirdy::Config.mail_sending_proc = lambda { |email, wexception| email.deliver }  
-The proc receives a mailer object and the wexception object(logged weirdy exception), and is call to send the email.
+#### mail_sending_proc
+*Proc*
+The proc receives a mailer object and the wexception object(logged weirdy exception), is call to send the email.
 This field default is to send the email on the request by just calling deliver on the email.
 The wexception is also passed because there is some trouble with serializing mailer objects, so if you use a queing library 
 that can't serialize the email object, the wexception is also passed and you can call: Weirdy.notify_exception(wexception)
@@ -196,8 +205,8 @@ end
 
 ## Compatibility
 
-Rails: it was tested with Rails 3.2 and 4.0. It should work with >= 3.0. Let me know of any issues.  
-DB's: MySql, Postgres, and SQLite  
+Rails: It was tested with Rails 3.2 and 4.0. It should work with >= 3.0. Let me know of any issues.  
+DB's: It was tested on: MySql, Postgres, and SQLite  
 
 
 
