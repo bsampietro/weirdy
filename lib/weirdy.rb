@@ -1,5 +1,4 @@
 require "will_paginate"
-require "jquery-rails"
 
 require "weirdy/engine"
 

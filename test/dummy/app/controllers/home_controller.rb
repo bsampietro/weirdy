@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   def index
-    self.cola
+    shims
     #User.first.admin?
+  end
+  
+  def shims
+    raise "not compiling"
   end
 end

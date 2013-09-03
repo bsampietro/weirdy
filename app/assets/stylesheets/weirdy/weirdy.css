@@ -1,12 +1,7 @@
 body {
-  /* font-family: Helvetica, Arial; */
-  /* font-family: Arial; */
-  /* font-family: "Times New Roman", Times, serif; */
+  font-family: "Times New Roman", Times, Helvetica, Arial, serif;
+  font-size: 1em;
 }
-
-/* a {
-  text-decoration: none;
-} */
 
 a:visited {
   color: blue;
@@ -63,7 +58,7 @@ td {
 
 th { 
   border: 1px solid #666; 
-  padding: 8px;
+  padding: 5px;
   background-color: #ccc;
 }
 
@@ -75,7 +70,7 @@ th {
 
 .container {
 	margin: 0px auto;
-	width: 90%;
+	width: 95%;
 }
 
 .filters {

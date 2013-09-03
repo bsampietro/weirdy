@@ -6,8 +6,10 @@ module Weirdy
       request.path + '?' + present_params.to_query
     end
     
-    def weirdy_time_format(time)
-      "#{time.strftime('%b %d, %Y - %H:%M:%S')} (#{time_ago_in_words time} ago)"
+    def weirdy_time_format(time, ago = false)
+      time_str = time.strftime('%b %d, %Y - %H:%M:%S')
+      time_str += " (#{time_ago_in_words time} ago)" if ago
+      time_str
     end
   end
 end
