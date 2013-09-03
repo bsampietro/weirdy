@@ -4,7 +4,7 @@ module Weirdy
   class WexceptionTest < ActiveSupport::TestCase
     def setup
       Weirdy::Config.app_directories = ["app/controllers", "app/helpers", "app/mailers", "app/models", "app/views", "mydir"]
-      Weirdy::Config.mail_sending_proc = lambda { |email, wexception| email.deliver }
+      Weirdy::Config.notifier_proc = lambda { |email, wexception| email.deliver }
       Weirdy::Config.mail_recipients = ["doug@mailer.com", "andrew@mailer.com"]
     end
     

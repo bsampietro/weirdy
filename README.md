@@ -108,7 +108,7 @@ Weirdy::Config.exceptions_per_page = 20
 
 Weirdy::Config.shown_stack = 15
 
-Weirdy::Config.mail_sending_proc = lambda { |email, wexception| email.deliver }
+Weirdy::Config.notifier_proc = lambda { |email, wexception| email.deliver }
 ```
 
 ### Options
@@ -125,10 +125,10 @@ If it is a string in the form of "user/password" it will use http basic auth wit
 If it is a proc, then if the proc returns true it allows access, if it return false it doesn't.  
 The proc receives the active controller as a parameter, this way you can access session and cookies with
 controller.session and controller.send(:cookies) (cookies is a private method)  
-eg: Weirdy::Config.auth = lambda { |controller| User.find(controller.session[:user_id]).admin? }  
+eg: `Weirdy::Config.auth = lambda { |controller| User.find(controller.session[:user_id]).admin? }`  
 Checkout Weirdy::Config.use_main_app_controller property to be able to use the main application controller as the base 
 controller for the engine, so you can use your own application authentication methods.  
-eg: Weirdy::Config.auth = lambda { |controller| controller.current_user.admin? }  
+eg: `Weirdy::Config.auth = lambda { |controller| controller.current_user.admin? }`
 
 #### use_main_app_controller
 *Boolean*
@@ -143,7 +143,7 @@ on that, the exceptions are grouped not only by exception type, but also with th
 (Weirdy does a simple comparison for each string on the exception stack, if the stack has any of these "app_directories" 
 strings, it is marked as an application line in the stack.)  
 Most application code in rails applications is inside these directories, that is why they are the defaults.
-But if you have code on other directories like 'lib', then adding your app directory (Weirdy::Config.app_directories << "your_app_directory") could be useful.
+But if you have code on other directories like 'lib', then adding your app directory (`Weirdy::Config.app_directories << "your_app_directory"`) could be useful.
 Don't add just 'lib' because it is a very common directory name for libraries, and weirdy will not find the application lines correctly.
 Add names that are ONLY in your application file paths and that are uniq.  
 If you set this to nil, exceptions will be only grouped by type.
@@ -164,13 +164,12 @@ Number of exceptions shown before paging.
 *Number*
 Number of lines visible at first sight on the stack.
 
-#### mail_sending_proc
+#### notifier_proc
 *Proc*
-The proc receives a mailer object and the wexception object(logged weirdy exception), is call to send the email.
-This field default is to send the email on the request by just calling deliver on the email.
-The wexception is also passed because there is some trouble with serializing mailer objects, so if you use a queing library 
-that can't serialize the email object, the wexception is also passed and you can call: Weirdy.notify_exception(wexception)
-to send the email.  
+The proc receives a mailer object and the wexception object(logged weirdy exception). By default it sends an email 
+on the request by just calling deliver on the email. But you could use this proc to run any code(notify to basecamp, etc).
+The wexception is also passed, so if you are having trouble with serializing mailer objects when using a queing library,
+you can call: `Weirdy.notify_exception(wexception)` to send the email.  
 Check the delayed job example below.  
 
 To avoid repeating Weirdy::Config, you can use this block as it was shown above:
@@ -190,7 +189,7 @@ end
 Here is an example on how to send mails with delayed job:
 
 ``` ruby
-Weirdy::Config.mail_sending_proc = lambda { |email, wexception| Delayed::Job.enqueue NotifierJob.new(wexception) }
+Weirdy::Config.notifier_proc = lambda { |email, wexception| Delayed::Job.enqueue NotifierJob.new(wexception) }
 
 # and NotifierJob defined like this:
 

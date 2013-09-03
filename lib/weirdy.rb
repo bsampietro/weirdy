@@ -19,7 +19,7 @@ module Weirdy
                     :app_name, 
                     :exceptions_per_page,
                     :shown_stack,
-                    :mail_sending_proc, 
+                    :notifier_proc, 
                     :use_main_app_controller, 
                     :app_directories
                     
@@ -32,7 +32,7 @@ module Weirdy
     self.app_name = "My application"
     self.exceptions_per_page = 20
     self.shown_stack = 15
-    self.mail_sending_proc = lambda { |email, wexception| email.deliver }
+    self.notifier_proc = lambda { |email, wexception| email.deliver }
     self.use_main_app_controller = false
     self.app_directories = ["app/controllers", "app/helpers", "app/mailers", "app/models", "app/views"]
   end
