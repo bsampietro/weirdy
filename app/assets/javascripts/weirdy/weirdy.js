@@ -3,12 +3,12 @@ var weirdy = {};
 weirdy.wexceptionsIndex = {
   initialize : function() {
     $("td.occurrences a").click(function(){
-      $(this).parents('tr').next('tr.occurrences').toggle(400);
+      $(this).parents('tr').next('tr.occurrences').toggle(200);
       return false;
     });
     
     $(".occurrences .actions a.hide").click(function(){
-      $(this).parents('tr.occurrences').toggle(400);
+      $(this).parents('tr.occurrences').toggle(200);
       return false;
     });
     
