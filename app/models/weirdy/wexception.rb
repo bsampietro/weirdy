@@ -70,7 +70,7 @@ module Weirdy
       end
       return nil if last_line.nil?
       raised_in = last_line.gsub(/:\d+:in\s+`/, "#").gsub("'", "")
-      raised_in[(Rails.root.to_s.length + 5)..-1]
+      raised_in[(Rails.root.to_s.length + 1)..-1]
     end
     
     def self.application_line?(line)
