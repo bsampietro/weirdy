@@ -7,7 +7,7 @@ module Weirdy
       delete_link = link_to("Delete", wexception_path(wexception), method: :delete, remote: true, confirm: "Sure?")
       case wexception.state
         when Weirdy::Wexception::STATE[:closed]
-          raw "#{open_link} &nbsp; #{ignore_link}"
+          raw "#{open_link} &nbsp; #{ignore_link} &nbsp; #{delete_link}"
         when Weirdy::Wexception::STATE[:opened]
           raw "#{close_link} &nbsp; #{ignore_link}"
         when Weirdy::Wexception::STATE[:ignored]
