@@ -40,7 +40,7 @@ module Weirdy
       
       get :index, {'state' => 'closed'}, use_route: :weirdy
       assert_response :success
-      assert_select "tr", 1 # only title
+      assert_select "tr", 2 # title and empty message
       
       wexception.change_state(:closed)
       

@@ -37,35 +37,43 @@
       Actions
     </th>
   </tr>
-  <% for wexception in @wexceptions %>
-    <tr id="wexception_<%= wexception.id %>">
-      <td class="kind">
-        <%= wexception.kind %>
-      </td>
-      <td class="message">
-        <%= wexception.last_message %>
-      </td>
-      <td class="raised_in" title="<%= CGI.escapeHTML wexception.raised_in.to_s %>">
-        <%= display_raised_in(wexception.raised_in) %>
-      </td>
-      <td class="last_happened_at">
-        <%= time_ago_in_words wexception.last_happened_at %> ago
-      </td>
-      <td class="first_happened_at">
-        <%= time_ago_in_words wexception.first_happened_at %> ago
-      </td>
-      <td class="occurrences">
-        <%= link_to wexception.occurrences_count, "#", title: "Click to see all occurrences of this exception" %>
-      </td>
-      <td class="actions">
-        <%= state_change_links(wexception) %>
-      </td>
-    </tr>
-    <tr class="occurrences">
+  <% if @wexceptions.empty? %>
+    <tr class="empty-message">
       <td colspan="7">
-        <%= render 'occurrences', :wexception => wexception %>
+        <%= empty_message %>
       </td>
     </tr>
+  <% else %>
+    <% for wexception in @wexceptions %>
+      <tr id="wexception_<%= wexception.id %>">
+        <td class="kind">
+          <%= wexception.kind %>
+        </td>
+        <td class="message">
+          <%= wexception.last_message %>
+        </td>
+        <td class="raised_in" title="<%= CGI.escapeHTML wexception.raised_in.to_s %>">
+          <%= display_raised_in(wexception.raised_in) %>
+        </td>
+        <td class="last_happened_at">
+          <%= time_ago_in_words wexception.last_happened_at %> ago
+        </td>
+        <td class="first_happened_at">
+          <%= time_ago_in_words wexception.first_happened_at %> ago
+        </td>
+        <td class="occurrences">
+          <%= link_to wexception.occurrences_count, "#", title: "Click to see all occurrences of this exception" %>
+        </td>
+        <td class="actions">
+          <%= state_change_links(wexception) %>
+        </td>
+      </tr>
+      <tr class="occurrences">
+        <td colspan="7">
+          <%= render 'occurrences', :wexception => wexception %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>
 

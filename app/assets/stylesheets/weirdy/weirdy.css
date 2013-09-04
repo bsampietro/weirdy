@@ -140,4 +140,9 @@ h3 {
   text-align: center;
 }
 
+.empty-message {
+  text-align: center;
+  font-weight: bold;
+}
+
 

@@ -44,5 +44,10 @@ module Weirdy
         raised_in
       end
     end
+    
+    def empty_message
+      state = params[:state].nil? ? 'opened' : params[:state]
+      "There are no #{state} exceptions."
+    end
   end
 end

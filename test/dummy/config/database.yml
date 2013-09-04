@@ -32,9 +32,15 @@ test:
   password:
 
 
+#production:
+#  adapter: mysql2
+#  database: weirdy_development
+#  pool: 5
+#  timeout: 5000
 
 production:
-  adapter: mysql2
-  database: weirdy_development
-  pool: 5
-  timeout: 5000
+  adapter: postgresql
+  encoding: utf8
+  database: weirdy_production
+  username: bruno
+  password:
