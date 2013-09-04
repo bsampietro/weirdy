@@ -1,6 +1,6 @@
 module Weirdy
   class Wexception < ActiveRecord::Base
-    has_many :occurrences, class_name: "WexceptionOccurrence", order: "happened_at DESC"
+    has_many :occurrences, class_name: "WexceptionOccurrence", order: "happened_at DESC", dependent: :destroy
     
     attr_accessible :kind, 
                     :last_message, 
