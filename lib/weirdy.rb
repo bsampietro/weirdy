@@ -29,7 +29,7 @@ module Weirdy
     self.mail_sender = "Weirdy <bugs@weirdyapp.com>"
     self.app_name = "My application"
     self.exceptions_per_page = 20
-    self.shown_stack = 15
+    self.shown_stack = 10
     self.notifier_proc = lambda { |email, wexception| email.deliver }
     self.use_main_app_controller = false
   end

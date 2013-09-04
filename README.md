@@ -104,7 +104,7 @@ Weirdy::Config.app_name = "My application"
 
 Weirdy::Config.exceptions_per_page = 20
 
-Weirdy::Config.shown_stack = 15
+Weirdy::Config.shown_stack = 10
 
 Weirdy::Config.notifier_proc = lambda { |email, wexception| email.deliver }
 ```
@@ -147,7 +147,7 @@ Number of exceptions shown before paging.
 
 #### shown_stack
 *Number*  
-Number of lines visible at first sight on the stack.
+Number of lines visible (when collapsed) on the stack.
 
 #### notifier_proc
 *Proc*  

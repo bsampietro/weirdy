@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
   
   rescue_from Exception do |exception|
     Weirdy.log_exception(exception,
-      {:session => session.inspect,  
+      {:url => request.url, 
        :params => params,
-       :url => request.url, 
+       :session => session.inspect, 
        :method => request.method})
     raise exception
   end

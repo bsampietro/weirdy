@@ -25,9 +25,9 @@
       <div class="backtrace">
         <h3>Backtrace</h3>
         <% if occurrence.backtrace.present? %>
-          <%= backtrace_display occurrence.backtrace[0..Weirdy::Config.shown_stack] %>
+          <%= backtrace_display occurrence.backtrace[0..(Weirdy::Config.shown_stack - 1)] %>
           <div class="more hidden">
-            <%= backtrace_display occurrence.backtrace[(Weirdy::Config.shown_stack + 1)..-1] %>
+            <%= backtrace_display occurrence.backtrace[Weirdy::Config.shown_stack..-1] %>
           </div>
           <div class="see-more">
             <%= link_to "See Complete Stack...", "#", class: "see-more" %>
