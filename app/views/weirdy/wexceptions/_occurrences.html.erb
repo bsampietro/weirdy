@@ -43,7 +43,7 @@
         <h3>Context Data</h3>
         <% if occurrence.data.present? %>
           <% occurrence.data.each do |key, value| %>
-            <p><span class="label"><%= key %></span>: <%= value %> </p>
+            <p><span class="label"><%= key %></span>: <%= value || '-' %> </p>
           <% end %>
         <% else %>
           No context data logged.

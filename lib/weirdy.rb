@@ -3,12 +3,43 @@ require "will_paginate"
 require "weirdy/engine"
 
 module Weirdy
+  # Log your application exception.
   def self.log_exception(exception, data = {})
-    Wexception.wcreate(exception, data)
+    begin
+      Wexception.wcreate(exception, data)
+    rescue Exception => e
+      log_weirdy_error(e)
+      return nil
+    end
   end
   
+  # Public method to send notification email.
   def self.notify_exception(wexception)
-    Notifier.exception(wexception).deliver
+    begin
+      Notifier.exception(wexception).deliver
+    rescue Exception => e
+      log_weirdy_error(e)
+      return nil
+    end
+  end
+  
+  def self.log_weirdy_error(exception)
+    Rails.logger.error %Q{Weirdy Gem error: #{exception.class.name} - "#{exception.message}"\n#{exception.backtrace.to_a[0..10].map {|line| "  " + line}.join("\n")}\n\n}
+  end
+  private_class_method :log_weirdy_error
+  
+  module ControllerInstanceMethods
+    def weirdy_log_exception(exception, data = {})
+      wdata = {'URL' => request.url,
+               'Params' => params,
+               'Session' => session.inspect,
+               'Method' => request.method,
+               'User Agent' => request.env['HTTP_USER_AGENT'],
+               'Referer' => request.env['HTTP_REFERER'],
+               'IP' => request.remote_ip}
+      wdata.merge!(data)
+      Weirdy.log_exception(exception, wdata)
+    end
   end
   
   class Config
@@ -34,3 +65,5 @@ module Weirdy
     self.use_main_app_controller = false
   end
 end
+
+ActionController::Base.send(:include, Weirdy::ControllerInstanceMethods)

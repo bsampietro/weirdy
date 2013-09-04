@@ -62,28 +62,54 @@ Now when you go to yourapp.com/weirdy, it should be working!
 
 Weirdy doesn't automatically log exceptions to avoid cluttering your application main code. 
 There is a public method to log exceptions from anywhere in the code, and add extra information you want to keep.
-The method to log exceptions is:
 
 ``` ruby
-Weirdy.log_wexception(exception, data={})
+Weirdy.log_exception(exception, data = {})
 ```
 
-where data is a hash with extra data you want to keep for each exception.
+and there is also a method to use ONLY in controllers which automatically adds:
+URL, Params, Session, Method, User Agent, Referer and IP to the context data.
+
+``` ruby
+weirdy_log_exception(exception, data = {})
+```
+
+where data is a hash with extra data you want to keep for each exception.  
 
 In your ApplicationController you can do something like this:
 
 ``` ruby
 rescue_from Exception do |exception|
-  Weirdy.log_exception(exception,
-    {:session => session.inspect,
-     :params => params,
-     :url => request.url, 
-     :method => request.method})
+  weirdy_log_exception(exception)
   raise exception
 end
 ```
 
-Weirdy will send emails for new exceptions and for reraised closed ones. It uses the same email sending configuration that your main app.
+or add some extra data:
+
+``` ruby
+rescue_from Exception do |exception|
+  weirdy_log_exception(exception, {'Content Type Header' => request.headers["Content-Type"]})
+  raise exception
+end
+```
+
+In your model (or any other place) you can do something like this:
+
+``` ruby
+def some_method
+  begin
+    # code that may raise en exception
+  rescue SomeException => e
+    Weirdy.log_exception(e, {:some_variable => some_variable.inspect, 
+      :some_other_variable => some_other_variable.inspect})
+  end
+end
+```
+
+Weirdy will send emails for new exceptions and for reraised closed ones.
+It uses the same email sending configuration that your main app.
+So you need to have email configured for Weirdy to be able to send emails.
 
 ## Configuration
 

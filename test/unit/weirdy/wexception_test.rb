@@ -18,6 +18,12 @@ module Weirdy
       assert_equal "Something is wrong", wexception.last_message
     end
     
+    test "should create wexception with context data" do
+      raise "Some error message" rescue exception = $!
+      wexception = Weirdy::Wexception.wcreate(exception, :some_context_data => 'context data')
+      assert_equal "context data", wexception.occurrences.first.data[:some_context_data]
+    end
+    
     test "should have one occurrence when creating exception" do
       wexception = create_wexception(RuntimeError, "Something is wrong")
       assert_equal 1, wexception.occurrences_count
