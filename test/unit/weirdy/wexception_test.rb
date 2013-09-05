@@ -54,12 +54,25 @@ module Weirdy
     end
     
     test "should re open exception if closed and reraised" do
-      wexception = create_wexception(RuntimeError, "Something is wrong", ["#{Rails.root.join('app', 'models', 'file.rb')}:3:in `index'"])
-      wexception.change_state(:closed)
-      assert wexception.state?(:closed)
-      create_wexception(RuntimeError, "Something is wrong", ["#{Rails.root.join('app', 'models', 'file.rb')}:3:in `index'"])
-      wexception = Wexception.find(wexception.id)
-      assert wexception.state?(:opened)
+      wexception1 = create_wexception(RuntimeError, "Something is wrong", ["#{Rails.root.join('app', 'models', 'file.rb')}:3:in `index'"])
+      wexception1.change_state(:closed)
+      assert wexception1.state?(:closed)
+      wexception2 = create_wexception(RuntimeError, "Something is wrong", ["#{Rails.root.join('app', 'models', 'file.rb')}:3:in `index'"])
+      wexception1 = Wexception.find(wexception1.id)
+      wexception2 = Wexception.find(wexception2.id)
+      assert wexception1 == wexception2
+      assert wexception1.state?(:opened)
+    end
+    
+    test "should not re open exception if ignored and reraised" do
+      wexception1 = create_wexception(RuntimeError, "Something is wrong", ["#{Rails.root.join('app', 'models', 'file.rb')}:3:in `index'"])
+      wexception1.change_state(:ignored)
+      assert wexception1.state?(:ignored)
+      wexception2 = create_wexception(RuntimeError, "Something is wrong", ["#{Rails.root.join('app', 'models', 'file.rb')}:3:in `index'"])
+      wexception1 = Wexception.find(wexception1.id)
+      wexception2 = Wexception.find(wexception2.id)
+      assert wexception1 == wexception2
+      assert wexception1.state?(:ignored)
     end
     
     test "should send an email when creating new exceptions" do
