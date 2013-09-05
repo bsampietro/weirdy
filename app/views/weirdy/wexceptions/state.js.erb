@@ -1,4 +1,4 @@
-$this = $("#wexception_<%= @wexception.id %>");
+$this = $("#wexception_<%= params[:id] %>");
 $next = $this.next();
 $this.fadeOut(400, function(){ $this.remove(); });
 $next.fadeOut(400, function(){ $next.remove(); });

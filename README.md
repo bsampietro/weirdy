@@ -1,13 +1,13 @@
 # Weirdy
 
-Weirdy is a Rails engine for exception tracking. It allows you to manage your application exceptions by the application 
-itself. It provides a panel and an emal notification system.
+Weirdy is an exception tracker and notification system for Ruby on Rails apps. Allows you to manage your application exceptions by the application
+itself. Provides a panel and an emal notification system.
 
 ## Installation:
 (Importing directly from GitHub while testing for a solid release)
 
 ``` ruby
-gem 'weirdy', '0.0.0', :git => 'git://github.com/bsampietro/weirdy.git'
+gem 'weirdy', '0.0.1', :git => 'git://github.com/bsampietro/weirdy.git'
 ```
 
 Copy and run the migrations
@@ -17,7 +17,7 @@ $ rake weirdy:install:migrations
 $ rake db:migrate
 ```
 
-Mount it as any other engine on your application's config/routes.rb:
+Mount it as any other Rails engine on your application's config/routes.rb:
 
 ``` ruby
 mount Weirdy::Engine => "/weirdy" # or any path
@@ -207,7 +207,7 @@ end
 ## Compatibility
 
 Rails: It was tested with Rails 3.2 and 4.0. It should work with >= 3.1. Let me know of any issues.  
-DB's: It was tested on: MySql, Postgres, and SQLite  
+DB's: It was tested with: MySql, Postgres, and SQLite  
 
 
 

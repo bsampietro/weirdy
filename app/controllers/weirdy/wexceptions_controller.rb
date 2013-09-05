@@ -13,12 +13,12 @@ module Weirdy
     
     def state
       @wexception = Wexception.find(params[:id])
-      @wexception.change_state(params[:state])
+      @wexception.change_state(params[:state]) if @wexception
     end
     
     def destroy
       @wexception = Wexception.find(params[:id])
-      @wexception.destroy
+      @wexception.destroy if @wexception
     end
   end
 end

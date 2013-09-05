@@ -66,6 +66,14 @@ module Weirdy
       assert wexception.state?(:closed)
     end
     
+    test "should destroy wexception" do
+      wexception = create_wexception(RuntimeError, "Something is wrong")
+      Weirdy::Config.auth = lambda { |controller| true }
+      xhr :delete, :destroy, {'id' => wexception.id}, use_route: :weirdy
+      assert_response :success
+      assert_nil Wexception.where(id: wexception.id).first
+    end
+    
     test "should handle exceptions with null backtrace" do
       create_wexception(RuntimeError, "Something is wrong", nil)
       create_wexception(RuntimeError, "Something is wrong", nil)

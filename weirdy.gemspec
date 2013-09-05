@@ -10,9 +10,9 @@ Gem::Specification.new do |s|
   s.author      = "Bruno Sampietro"
   s.email       = "bsampietro@gmail.com"
   s.homepage    = "http://www.weirdyapp.com"
-  s.summary     = "A Rails engine for exception tracking. It allows you to manage your application exceptions by the application itself. It provides a panel and an emal notification system."
-  s.description = "A Rails engine for exception tracking. It allows you to manage your application exceptions by the application itself. It provides a panel and an emal notification system."
-  s.license     = 'GPL-3'
+  s.summary     = "An exception tracker and notification system for Ruby on Rails apps. Manages your application exceptions by the application itself. Provides a panel and an emal notification system."
+  s.description = "An exception tracker and notification system for Ruby on Rails apps. Manages your application exceptions by the application itself. Provides a panel and an emal notification system."
+  s.license     = 'MIT'
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
