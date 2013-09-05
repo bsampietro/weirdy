@@ -4,10 +4,10 @@ Weirdy is a Rails engine for exception tracking. It allows you to manage your ap
 itself. It provides a panel and an emal notification system.
 
 ## Installation:
+(Importing directly from GitHub while testing for a solid release)
 
 ``` ruby
-## Gemfile for Rails
-gem 'weirdy'
+gem 'weirdy', '0.0.0', :git => 'git://github.com/bsampietro/weirdy.git'
 ```
 
 Copy and run the migrations
@@ -114,24 +114,16 @@ So you need to have email configured for Weirdy to be able to send emails.
 ## Configuration
 
 ``` ruby
-# Default values are on fields except when noted.
-
+# Fields without a default value
 Weirdy::Config.mail_recipients = "batman@gothamcity.com"
-# This field doesn't have a default value.
-
 Weirdy::Config.auth = "admin/123"
-# This field doesn't have a default value.
 
+# Fields with default values
 Weirdy::Config.use_main_app_controller = false
-
 Weirdy::Config.mail_sender = "Weirdy <bugs@weirdyapp.com>"
-
 Weirdy::Config.app_name = "My application"
-
 Weirdy::Config.exceptions_per_page = 20
-
 Weirdy::Config.shown_stack = 10
-
 Weirdy::Config.notifier_proc = lambda { |email, wexception| email.deliver }
 ```
 
@@ -214,7 +206,7 @@ end
 
 ## Compatibility
 
-Rails: It was tested with Rails 3.2 and 4.0. It should work with >= 3.0. Let me know of any issues.  
+Rails: It was tested with Rails 3.2 and 4.0. It should work with >= 3.1. Let me know of any issues.  
 DB's: It was tested on: MySql, Postgres, and SQLite  
 
 

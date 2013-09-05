@@ -1,5 +1,9 @@
 class HomeController < ApplicationController
   def index
+    session["h"] = "hola"
+    session["h2"] = "hola2"
+    cookies["hk"] = "peque"
+    cookies["hk2"] = "pole"
     methods = (1..6).to_a.map {|i| "met#{i}"}
     rand(2) == 1 ?
       User.new.send(methods.sample) :
