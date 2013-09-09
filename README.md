@@ -1,7 +1,10 @@
 # Weirdy
 
-Weirdy is an exception tracker and notification system for Ruby on Rails apps. Allows you to manage your application exceptions by the application
-itself. Provides a panel and an emal notification system.
+Weirdy is an exception tracker and notification system gem for Ruby on Rails apps.
+Manages your application exceptions by the application itself.
+Provides a panel to check raised exceptions, and send emails or run custom code on newly raised ones, similar to: exceptional, airbrake, etc.
+But runs (as a Rails engine) inside your application, and need minimal configuration to make it work.
+
 
 ## Installation:
 (Importing directly from GitHub while testing for a solid release)
@@ -37,15 +40,15 @@ Be sure to check out the Configuration section to change this options and for ot
 
 ### Assets
 
-If the asset pipeline IS NOT enabled in your app, you will have to manually copy the necessary Javascript and stylesheet files.  
-[Javascript] file should go in: "public/javascripts/weirdy/"  
-[Stylesheet] file should go in: "public/stylesheets/weirdy/"
-
 If the asset pipeline IS enabled you should have the jquery-rails gem in your Gemfile:
 
 ``` ruby
 gem "jquery-rails"
 ```
+
+If the asset pipeline IS NOT enabled in your app, you will have to manually copy the necessary Javascript and stylesheet files.  
+[Javascript] file should go in: "public/javascripts/weirdy/"  
+[Stylesheet] file should go in: "public/stylesheets/weirdy/"
 
 ### Rails 4
 
