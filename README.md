@@ -1,16 +1,15 @@
 # Weirdy
 
-Weirdy is an exception tracker and notification system gem for Ruby on Rails apps.
-Manages your application exceptions by the application itself.
-Provides a panel to check raised exceptions, and send emails or run custom code on newly raised ones, similar to: exceptional, airbrake, etc.
-But runs (as a Rails engine) inside your application, and need minimal configuration to make it work.
+Weirdy is an exception tracker and notification system gem for Ruby on Rails apps using Active Record.
+It provides a panel to check raised exceptions, and send emails or run custom code on newly raised ones, similar to: exceptional, airbrake, etc.
+But runs (as a Rails engine) inside your application, and needs minimal configuration to make it work.
 
 
 ## Installation:
 (Importing directly from GitHub while testing for a solid release)
 
 ``` ruby
-gem 'weirdy', '0.0.1', :git => 'git://github.com/bsampietro/weirdy.git'
+gem 'weirdy', :git => 'git://github.com/bsampietro/weirdy.git'
 ```
 
 Copy and run the migrations
@@ -64,20 +63,20 @@ Now when you go to yourapp.com/weirdy, it should be working!
 ## Usage
 
 Weirdy doesn't automatically log exceptions to avoid cluttering your application main code. 
-There is a public method to log exceptions from anywhere in the code, and add extra information you want to keep.
+There is a public method to log exceptions:
 
 ``` ruby
 Weirdy.log_exception(exception, data = {})
 ```
 
 and there is also a method to use ONLY in controllers which automatically adds:
-URL, Params, Session, Method, User Agent, Referer and IP to the context data.
+URL, Params, Session, Cookies, Method, User Agent, Referer and IP to the context data.
 
 ``` ruby
 weirdy_log_exception(exception, data = {})
 ```
 
-where data is a hash with extra data you want to keep for each exception.  
+where data is a hash with extra information you may want to keep to help you debug the error.  
 
 In your ApplicationController you can do something like this:
 
@@ -112,7 +111,7 @@ end
 
 Weirdy will send emails for new exceptions and for reraised closed ones.
 It uses the same email sending configuration that your main app.
-So you need to have email configured for Weirdy to be able to send emails.
+So you need to be able to send emails from your app, for Weirdy to be able to send emails.
 
 ## Configuration
 
