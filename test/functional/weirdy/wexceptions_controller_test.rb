@@ -82,5 +82,17 @@ module Weirdy
       get :index, use_route: :weirdy
       assert_response :success
     end
+    
+    test "should not break if not exists exception when changing state" do
+      Weirdy::Config.auth = lambda { |controller| true }
+      xhr :put, :state, {'id' => 911, 'state' => 'closed'}, use_route: :weirdy
+      assert_response :success
+    end
+    
+    test "should not break if not exists when deleting" do
+      Weirdy::Config.auth = lambda { |controller| true }
+      xhr :delete, :destroy, {'id' => 911}, use_route: :weirdy
+      assert_response :success
+    end
   end
 end
