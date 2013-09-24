@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    weirdy (0.0.1)
-      rails
+    weirdy (0.0.3)
+      rails (>= 3.1.0)
       will_paginate (>= 3.0.0)
 
 GEM

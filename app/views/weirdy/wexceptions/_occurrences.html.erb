@@ -3,7 +3,7 @@
   <%= link_to "Next >", "#", class: "next" %> &nbsp;
   <%= link_to "Hide", "#", class: "hide" %>
 </div>
-<div>
+<div class="data">
   <% occurrences_length = wexception.occurrences.length %>
   <% wexception.occurrences.each_with_index do |occurrence, i| %>
     <% display = i == 0 ? "" : " hidden" %>

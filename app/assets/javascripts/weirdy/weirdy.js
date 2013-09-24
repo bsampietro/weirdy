@@ -2,17 +2,17 @@ var weirdy = {};
 
 weirdy.wexceptionsIndex = {
   initialize : function() {
-    $("td.occurrences a").click(function(){
+    $("td.occurrences a").click(function() {
       $(this).parents('tr').next('tr.occurrences').toggle(200);
       return false;
     });
     
-    $(".occurrences .actions a.hide").click(function(){
+    $(".occurrences .actions a.hide").click(function() {
       $(this).parents('tr.occurrences').toggle(200);
       return false;
     });
     
-    $("a.prev").click(function(){
+    $("a.prev").click(function() {
       var $current = $(this).parents(".actions").next().find(".occurrence:not(.hidden)")
       var $prev = $current.prev();
       if ($prev.length > 0) {
@@ -22,7 +22,7 @@ weirdy.wexceptionsIndex = {
       return false;
     });
     
-    $("a.next").click(function(){
+    $("a.next").click(function() {
       var $current = $(this).parents(".actions").next().find(".occurrence:not(.hidden)")
       var $next = $current.next();
       if ($next.length > 0) {
@@ -32,7 +32,7 @@ weirdy.wexceptionsIndex = {
       return false;
     });
     
-    $(".backtrace .see-more a").click(function(){
+    $(".backtrace .see-more a").click(function() {
       var $more = $(this).parents('.backtrace').find('.more');
       if ($more.hasClass("hidden")){
         $more.removeClass("hidden");
@@ -45,6 +45,14 @@ weirdy.wexceptionsIndex = {
       }
       return false;
     });
-    
+
+    weirdy.wexceptionsIndex.fix_backtrace_size();
+    $(window).resize(function() {
+      weirdy.wexceptionsIndex.fix_backtrace_size();
+    });
+  },
+
+  fix_backtrace_size: function() {
+    $(".backtrace").width($("table").width() - 40);
   }
 };

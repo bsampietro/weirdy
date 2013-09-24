@@ -24,10 +24,6 @@ tr.occurrences {
   padding-left: 20px;
 }
 
-tr.occurrences td {
-  overflow: scroll;
-}
-
 td.kind {
   font-weight: bold;
 }
@@ -96,6 +92,9 @@ th {
   text-align: center;
 }
 
+.occurrences .data {
+  overflow: scroll;
+}
 
 .occurrence .number {
   text-align: center;
