@@ -8,7 +8,7 @@ module Weirdy
       http_basic_auth_login("admin", "123")
       get :index, use_route: :weirdy
       assert_response :success
-      assert_select "tr", 3 # headers, exception title, exception details
+      assert_select "td.kind", "RuntimeError"
     end
     
     test "should not get exceptions list with incorrect http basic auth" do
@@ -23,7 +23,7 @@ module Weirdy
       Weirdy::Config.auth = lambda { |controller| true }
       get :index, use_route: :weirdy
       assert_response :success
-      assert_select "tr", 3 # headers, exception title, exception details
+      assert_select "td.kind", "RuntimeError"
     end
     
     test "should not get exceptions list when auth proc returns false" do
@@ -40,13 +40,13 @@ module Weirdy
       
       get :index, {'state' => 'closed'}, use_route: :weirdy
       assert_response :success
-      assert_select "tr", 2 # title and empty message
+      assert_select "td", /There are no \w+ exceptions/
       
       wexception.change_state(:closed)
       
       get :index, {'state' => 'closed'}, use_route: :weirdy
       assert_response :success
-      assert_select "tr", 3 # headers, exception title, exception details
+      assert_select "td.kind", "RuntimeError"
     end
     
     test "can order by occurrences" do

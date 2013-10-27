@@ -1,0 +1,2 @@
+$("#wexception_<%= params[:wexception_id] %>").
+  after("<%= escape_javascript(render 'occurrences', wexception_occurrences: @wexception_occurrences) %>");

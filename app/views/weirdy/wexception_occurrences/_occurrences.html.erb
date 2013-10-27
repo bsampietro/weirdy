@@ -1,0 +1,58 @@
+<tr class="occurrences">
+  <td colspan="7">
+    <div class="actions">
+      <%= link_to "< Prev", "#", class: "prev" %> &nbsp;
+      <%= link_to "Next >", "#", class: "next" %> &nbsp;
+      <%= link_to "Hide", "#", class: "hide" %>
+    </div>
+    <div class="data">
+      <% occurrences_length = wexception_occurrences.length %>
+      <% wexception_occurrences.each_with_index do |occurrence, i| %>
+        <% display = i == 0 ? "" : " hidden" %>
+        <div class="occurrence<%= display %>">
+          <div class="number">
+            <%= i + 1 %> of <%= occurrences_length %> Occurrences
+          </div>
+          
+          <div class="message">
+            <span class="label">Message</span>: <%= occurrence.message %>
+          </div>
+          
+          <div class="time">
+            <span class="label">Happened At</span>: <%= weirdy_time_format occurrence.happened_at, true %>
+          </div>
+          
+          <div class="hr"></div>
+          
+          <div class="backtrace">
+            <h3>Backtrace</h3>
+            <% if occurrence.backtrace.present? %>
+              <%= backtrace_display occurrence.backtrace[0..(Weirdy::Config.shown_stack - 1)] %>
+              <div class="more hidden">
+                <%= backtrace_display occurrence.backtrace[Weirdy::Config.shown_stack..-1] %>
+              </div>
+              <div class="see-more">
+                <%= link_to "See Complete Stack...", "#" %>
+              </div>
+            <% else %>
+              No backtrace associated with this exception.
+            <% end %>
+          </div>
+          
+          <div class="hr"></div>
+          
+          <div class="context-data">
+            <h3>Context Data</h3>
+            <% if occurrence.data.present? %>
+              <% occurrence.data.each do |key, value| %>
+                <p><span class="label"><%= key %></span>: <%= value || '-' %> </p>
+              <% end %>
+            <% else %>
+              No context data logged.
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </td>
+</tr>

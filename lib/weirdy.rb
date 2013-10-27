@@ -70,7 +70,8 @@ module Weirdy
                     :exceptions_per_page,
                     :shown_stack,
                     :notifier_proc, 
-                    :use_main_app_controller
+                    :use_main_app_controller,
+                    :shown_occurrences
                     
       def configure(&blk)
         yield self
@@ -82,6 +83,7 @@ module Weirdy
     self.shown_stack = 10
     self.notifier_proc = lambda { |email, wexception| email.deliver }
     self.use_main_app_controller = false
+    self.shown_occurrences = 15
   end
 end
 

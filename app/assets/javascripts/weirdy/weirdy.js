@@ -3,16 +3,27 @@ var weirdy = {};
 weirdy.wexceptionsIndex = {
   initialize : function() {
     $("td.occurrences a").click(function() {
-      $(this).parents('tr').next('tr.occurrences').toggle(200);
+      if ($(this).attr("data-clicked")){
+        $(this).parents('tr').next('tr.occurrences').toggle(200);
+      }
+      else{
+        $(this).attr("data-clicked", "true");
+        $.ajax({
+          url: $(this).attr("href"),
+          complete: function() { 
+            weirdy.wexceptionsIndex.fix_backtrace_size();
+          }
+        });
+      }
       return false;
     });
     
-    $(".occurrences .actions a.hide").click(function() {
+    $(document).on('click', ".occurrences .actions a.hide", function() {
       $(this).parents('tr.occurrences').toggle(200);
       return false;
     });
     
-    $("a.prev").click(function() {
+    $(document).on('click', "a.prev", function() {
       var $current = $(this).parents(".actions").next().find(".occurrence:not(.hidden)")
       var $prev = $current.prev();
       if ($prev.length > 0) {
@@ -22,7 +33,7 @@ weirdy.wexceptionsIndex = {
       return false;
     });
     
-    $("a.next").click(function() {
+    $(document).on('click', "a.next", function() {
       var $current = $(this).parents(".actions").next().find(".occurrence:not(.hidden)")
       var $next = $current.next();
       if ($next.length > 0) {
@@ -32,7 +43,7 @@ weirdy.wexceptionsIndex = {
       return false;
     });
     
-    $(".backtrace .see-more a").click(function() {
+    $(document).on('click', ".backtrace .see-more a", function() {
       var $more = $(this).parents('.backtrace').find('.more');
       if ($more.hasClass("hidden")){
         $more.removeClass("hidden");
@@ -46,13 +57,15 @@ weirdy.wexceptionsIndex = {
       return false;
     });
 
-    weirdy.wexceptionsIndex.fix_backtrace_size();
     $(window).resize(function() {
+      weirdy.wexceptionsIndex.table_size = $("table").width();
       weirdy.wexceptionsIndex.fix_backtrace_size();
     });
   },
 
   fix_backtrace_size: function() {
-    $(".backtrace").width($("table").width() - 40);
-  }
+    $(".backtrace").width(this.table_size - 40);
+  },
+
+  table_size: $("table").width()
 };

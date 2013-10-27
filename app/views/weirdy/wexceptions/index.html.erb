@@ -62,15 +62,10 @@
           <%= time_ago_in_words wexception.first_happened_at %> ago
         </td>
         <td class="occurrences">
-          <%= link_to wexception.occurrences_count, "#", title: "Click to see all occurrences of this exception" %>
+          <%= link_to wexception.occurrences_count, wexception_wexception_occurrences_path(wexception), title: "Click to see all occurrences of this exception" %>
         </td>
         <td class="actions">
           <%= state_change_links(wexception) %>
-        </td>
-      </tr>
-      <tr class="occurrences">
-        <td colspan="7">
-          <%= render 'occurrences', :wexception => wexception %>
         </td>
       </tr>
     <% end %>

@@ -127,6 +127,7 @@ Weirdy::Config.app_name = "My application"
 Weirdy::Config.exceptions_per_page = 20
 Weirdy::Config.shown_stack = 10
 Weirdy::Config.notifier_proc = lambda { |email, wexception| email.deliver }
+Weirdy::Config.shown_occurrences = 15
 ```
 
 ### Options
@@ -175,7 +176,11 @@ The proc receives a mailer object and the wexception object(logged weirdy except
 on the request by just calling deliver on the email. But you could use this proc to run any code(notify to basecamp, etc).
 The wexception is also passed, so if you are having trouble with serializing mailer objects when using a queing library,
 you can call: `Weirdy.notify_exception(wexception)` to send the email.  
-Check the delayed job example below.  
+Check the delayed job example below.
+
+#### shown_occurrences
+*Number*  
+Number of exception occurrences to show.  
 
 To avoid repeating Weirdy::Config, you can use this block as it was shown above:
 
