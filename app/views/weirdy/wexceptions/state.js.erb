@@ -1,4 +1,5 @@
 $this = $("#wexception_<%= params[:id] %>");
-$next = $this.next();
+$occurrences = $this.next(".occurrences");
 $this.fadeOut(400, function(){ $this.remove(); });
-$next.fadeOut(400, function(){ $next.remove(); });
+if ($occurrences.length > 0)
+  $occurrences.fadeOut(400, function(){ $occurrences.remove(); });
