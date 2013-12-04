@@ -26,25 +26,6 @@ module Weirdy
       end.join("<br>"))
     end
     
-    def display_raised_in(raised_in)
-      return '-' if raised_in.blank?
-      max_length = 60
-      half = max_length / 2
-      if raised_in.length > max_length
-        method = raised_in.split("#")
-        length0 = method[0].length
-        length1 = method[1].length
-        method[0] = method[0][(length0 - half)..length0]
-        method[1] = method[1][0..half]
-        response = method.join('#')
-        response = "..." + response if length0 > half
-        response = response + '...' if length1 > half
-        response
-      else
-        raised_in
-      end
-    end
-    
     def empty_message
       state = params[:state].nil? ? 'opened' : params[:state]
       "There are no #{state} exceptions."

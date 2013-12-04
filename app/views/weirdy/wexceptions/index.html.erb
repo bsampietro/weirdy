@@ -53,7 +53,7 @@
           <%= wexception.last_message.truncate(Weirdy::Config.exception_message_max_chars) %>
         </td>
         <td class="raised_in" title="<%= CGI.escapeHTML wexception.raised_in.to_s %>">
-          <%= display_raised_in(wexception.raised_in) %>
+          <%= wexception.raised_in %>
         </td>
         <td class="last_happened_at">
           <%= time_ago_in_words wexception.last_happened_at %> ago
