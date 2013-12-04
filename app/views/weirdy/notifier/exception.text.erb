@@ -7,6 +7,10 @@ MESSAGE:
 RAISED IN:
 <%= @wexception.raised_in || '-'%>
 
+<% if @wexception.occurrences_count == 1 -%>
+HAPPENED_AT:
+<%= weirdy_time_format @wexception.first_happened_at %>
+<% else -%>
 LAST HAPPENED AT:
 <%= weirdy_time_format @wexception.last_happened_at %>
 
@@ -15,3 +19,4 @@ FIRST HAPPENED AT:
 
 OCCURRENCES:
 <%= @wexception.occurrences_count %>
+<% end %>
