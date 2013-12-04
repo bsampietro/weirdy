@@ -19,7 +19,7 @@ module Weirdy
       wexception = create_wexception(RuntimeError, "Something is wrong")
       Weirdy.notify_exception(wexception)
       mail = ActionMailer::Base.deliveries.last
-      assert_equal "#{Weirdy::Config.app_name}: #{wexception.kind} - \"#{wexception.last_message}\"", mail.subject
+      assert_equal "#{Weirdy::Config.app_name}: #{wexception.kind} - \"#{wexception.last_message.truncate(Weirdy::Config.exception_message_max_chars)}\"", mail.subject
       assert_equal Weirdy::Config.mail_recipients, mail.to
     end
     

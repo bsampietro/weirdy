@@ -50,7 +50,7 @@
           <%= wexception.kind %>
         </td>
         <td class="message">
-          <%= wexception.last_message %>
+          <%= wexception.last_message.truncate(Weirdy::Config.exception_message_max_chars) %>
         </td>
         <td class="raised_in" title="<%= CGI.escapeHTML wexception.raised_in.to_s %>">
           <%= display_raised_in(wexception.raised_in) %>

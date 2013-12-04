@@ -9,7 +9,8 @@ module Weirdy
                     :shown_stack,
                     :notifier_proc, 
                     :use_main_app_controller,
-                    :shown_occurrences
+                    :shown_occurrences,
+                    :exception_message_max_chars
                     
       def configure(&blk)
         yield self
@@ -22,5 +23,6 @@ module Weirdy
     self.notifier_proc = lambda { |email, wexception| email.deliver }
     self.use_main_app_controller = false
     self.shown_occurrences = 15
+    self.exception_message_max_chars = 125
   end
 end

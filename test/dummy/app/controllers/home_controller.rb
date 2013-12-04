@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     session["h2"] = "hola2"
     cookies["hk"] = "peque"
     cookies["hk2"] = "pole"
-    methods = (1..6).to_a.map {|i| "met#{i}"}
+    methods = (1..7).to_a.map {|i| "met#{i}"}
     rand(2) == 1 ?
       User.new.send(methods.sample) :
       send(methods.sample)
@@ -34,5 +34,10 @@ class HomeController < ApplicationController
     Timeout::timeout(5) {
       sleep(6)
     }
+  end
+
+  def met7
+    raise "Really big exception message. This is a really big message and we want to truncate it because 
+      is really annoying to have a long long long message in a mail subject"
   end
 end

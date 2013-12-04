@@ -128,6 +128,7 @@ Weirdy::Config.exceptions_per_page = 20
 Weirdy::Config.shown_stack = 10
 Weirdy::Config.notifier_proc = lambda { |email, wexception| email.deliver }
 Weirdy::Config.shown_occurrences = 15
+Weirdy::Config.exception_message_max_chars = 125
 ```
 
 ### Options
@@ -181,6 +182,11 @@ Check the delayed job example below.
 #### shown_occurrences
 *Number*  
 Number of exception occurrences to show.  
+
+#### exception_message_max_chars
+*Number*  
+Max chars on the exception's message to show on not specific message places, 
+like mail subject or exceptions list.  
 
 To avoid repeating Weirdy::Config, you can use this block as it was shown above:
 
