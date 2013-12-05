@@ -119,6 +119,7 @@ So you need to be able to send emails from your app, for Weirdy to be able to se
 # Fields without a default value
 Weirdy::Config.mail_recipients = "batman@gothamcity.com"
 Weirdy::Config.auth = "admin/123"
+Weirdy::Config.application_path_key = "some_string_that_identifies_path"
 
 # Fields with default values
 Weirdy::Config.use_main_app_controller = false
@@ -187,6 +188,17 @@ Number of exception occurrences to show.
 *Number*  
 Max chars on the exception's message to show on not specific message places, 
 like mail subject or exceptions list.  
+
+#### application_path_key
+*String*  
+String with a keyword identifying some part or the whole application path. Used to
+identify and put exception application lines in bold when showing the backtrace.
+Otherwise it will only use Rails.root, which might change between releases if you are using
+for example capistrano to make your deployments.
+Suppose you are using Capistrano, then "/path/to/your/app/releases" is a good value for this string,
+or just "releases", but there might be some other line in your backtrace that has that string,
+so try to be the more specific that is possible.
+Weirdy will just ask for string#include for each line in the backtrace.  
 
 To avoid repeating Weirdy::Config, you can use this block as it was shown above:
 

@@ -74,7 +74,9 @@ module Weirdy
     end
     
     def self.application_line?(line)
-      line.include?(Rails.root.to_s) && !line.include?("#{File::SEPARATOR}vendor#{File::SEPARATOR}")
+      (line.include?(Rails.root.to_s) || 
+      (Weirdy::Config.application_path_key.present? && line.include?(Weirdy::Config.application_path_key.to_s))) &&
+      !line.include?("#{File::SEPARATOR}vendor#{File::SEPARATOR}")
     end
     
     def state?(state)

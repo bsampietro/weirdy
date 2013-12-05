@@ -10,7 +10,8 @@ module Weirdy
                     :notifier_proc, 
                     :use_main_app_controller,
                     :shown_occurrences,
-                    :exception_message_max_chars
+                    :exception_message_max_chars,
+                    :application_path_key
                     
       def configure(&blk)
         yield self
