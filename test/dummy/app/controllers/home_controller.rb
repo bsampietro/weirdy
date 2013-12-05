@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     rand(2) == 1 ?
       User.new.send(methods.sample) :
       send(methods.sample)
+    #met8_this_is_a_very_long_method_i_want_to_test_what_happens_with_really_long_method_names_so_it_doesnt_break_the_page
   end
   
   def met1
@@ -39,5 +40,9 @@ class HomeController < ApplicationController
   def met7
     raise "Really big exception message. This is a really big message and we want to truncate it because 
       is really annoying to have a long long long message in a mail subject"
+  end
+
+  def met8_this_is_a_very_long_method_i_want_to_test_what_happens_with_really_long_method_names_so_it_doesnt_break_the_page
+    raise "big method error"
   end
 end

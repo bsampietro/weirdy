@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    weirdy (0.2.1)
+    weirdy (0.2.2)
       rails (>= 3.1.0)
       will_paginate (>= 3.0.0)
 

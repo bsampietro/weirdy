@@ -26,6 +26,23 @@ module Weirdy
       end.join("<br>"))
     end
     
+    def display_raised_in(raised_in)
+      return '-' if raised_in.blank?
+      max_line = 60
+      if raised_in.length > max_line
+        # number of <br> inserts
+        inserts_number = (raised_in.length / max_line)
+
+        output = raised_in.dup
+        inserts_number.times do |i|
+          output.insert((i+1) * max_line, '<br>')
+        end
+        raw output
+      else
+        raised_in
+      end
+    end
+    
     def empty_message
       state = params[:state].nil? ? 'opened' : params[:state]
       "There are no #{state} exceptions."
