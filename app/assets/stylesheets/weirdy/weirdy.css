@@ -41,6 +41,7 @@ td.raised_in {
 td.kind, td.first_happened_at, td.last_happened_at, td.occurrences, td.actions {
   text-align: center;
   white-space: nowrap;
+  font-size: 0.9em;
 }
 
 table { 
