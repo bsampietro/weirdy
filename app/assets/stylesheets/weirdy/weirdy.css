@@ -25,6 +25,7 @@ tr.occurrences {
 
 td.kind {
   font-weight: bold;
+  font-size: 0.9em;
 }
 
 td.message {

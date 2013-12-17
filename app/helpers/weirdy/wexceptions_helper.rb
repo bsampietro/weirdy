@@ -25,27 +25,34 @@ module Weirdy
         end
       end.join("<br>"))
     end
+
+    def display_last_message(message)
+      message = message.truncate(Weirdy::Config.exception_message_max_chars)
+      cut_long_lines(message, 60)
+    end
     
     def display_raised_in(raised_in)
       return '-' if raised_in.blank?
-      max_line = 60
-      if raised_in.length > max_line
-        # number of <br> inserts
-        inserts_number = (raised_in.length / max_line)
-
-        output = raised_in.dup
-        inserts_number.times do |i|
-          output.insert((i+1) * max_line, '<br>')
-        end
-        raw output
-      else
-        raised_in
-      end
+      cut_long_lines(raised_in, 60)
     end
     
     def empty_message
       state = params[:state].nil? ? 'opened' : params[:state]
       "There are no #{state} exceptions."
+    end
+
+    def cut_long_lines(line, max)
+      return line if line.length <= max
+      words = line.split(/\s+/)
+      words.each do |word|
+        next if word.length <= max
+        # number of <br> inserts
+        inserts_number = (word.length / max)
+        inserts_number.times do |i|
+          word.insert((i+1) * max, '<br>')
+        end
+      end
+      raw words.join(' ')
     end
   end
 end
