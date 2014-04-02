@@ -27,11 +27,11 @@
           <p class="kind">
             <%= wexception.kind %>
           </p>
-          <p class="message">
-            <%= display_last_message(wexception.last_message) %>
-          </p>
-          <p class="raised_in">
+          <p class="raised_in" title="Raised In">
             <%= display_raised_in(wexception.raised_in) %>
+          </p>
+          <p class="message" title="Message">
+            <%= display_last_message(wexception.last_message) %>
           </p>
         </td>
         <td class="info2">
