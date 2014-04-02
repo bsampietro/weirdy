@@ -27,13 +27,13 @@ module Weirdy
     end
 
     def display_last_message(message)
-      message = message.truncate(Weirdy::Config.exception_message_max_chars)
-      cut_long_lines(message, 40)
+      # message = message.truncate(Weirdy::Config.exception_message_max_chars)
+      cut_long_lines(message, 200)
     end
     
     def display_raised_in(raised_in)
       return '-' if raised_in.blank?
-      cut_long_lines(raised_in, 40)
+      cut_long_lines(raised_in, 200)
     end
     
     def empty_message
