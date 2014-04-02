@@ -2,7 +2,7 @@ var weirdy = {};
 
 weirdy.wexceptionsIndex = {
   initialize : function() {
-    $("td.occurrences a").click(function() {
+    $(".info2 .occurrences a").click(function() {
       if ($(this).attr("data-clicked")){
         $(this).parents('tr').next('tr.occurrences').toggle(200);
       }
