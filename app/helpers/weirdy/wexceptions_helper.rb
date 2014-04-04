@@ -27,7 +27,6 @@ module Weirdy
     end
 
     def display_last_message(message)
-      # message = message.truncate(Weirdy::Config.exception_message_max_chars)
       cut_long_lines(message, 200)
     end
     

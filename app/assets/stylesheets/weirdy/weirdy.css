@@ -48,12 +48,13 @@ td {
 .message {
   font-style: italic;
   font-size: 1em;
+  color: #151515;
 }
 
 .raised_in {
   font-weight: bold;
   font-size: 1em;
-  color: #424242;
+  color: blue;
 }
 
 .first_happened_at, .last_happened_at {
@@ -127,7 +128,7 @@ table {
 
 .backtrace {
   white-space: nowrap;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .backtrace .see-more {

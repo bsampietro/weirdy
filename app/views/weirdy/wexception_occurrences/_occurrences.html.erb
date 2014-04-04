@@ -23,6 +23,19 @@
           </div>
           
           <div class="hr"></div>
+
+          <div class="context-data">
+            <h3>Context Data</h3>
+            <% if occurrence.data.present? %>
+              <% occurrence.data.each do |key, value| %>
+                <p><span class="label"><%= key %></span>: <%= value || '-' %> </p>
+              <% end %>
+            <% else %>
+              No context data logged.
+            <% end %>
+          </div>
+
+          <div class="hr"></div>
           
           <div class="backtrace">
             <h3>Backtrace</h3>
@@ -39,18 +52,6 @@
             <% end %>
           </div>
           
-          <div class="hr"></div>
-          
-          <div class="context-data">
-            <h3>Context Data</h3>
-            <% if occurrence.data.present? %>
-              <% occurrence.data.each do |key, value| %>
-                <p><span class="label"><%= key %></span>: <%= value || '-' %> </p>
-              <% end %>
-            <% else %>
-              No context data logged.
-            <% end %>
-          </div>
         </div>
       <% end %>
     </div>
