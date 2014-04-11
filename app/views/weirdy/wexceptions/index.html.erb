@@ -31,7 +31,7 @@
             <%= wexception.raised_in %>
           </p>
           <p class="message" title="Message">
-            <%= wexception.last_message %>
+            <%= wexception.last_message.truncate(Weirdy::Config.exception_message_max_chars) %>
           </p>
         </td>
         <td class="info2">
