@@ -28,10 +28,10 @@
             <%= wexception.kind %>
           </p>
           <p class="raised_in" title="Raised In">
-            <%= display_raised_in(wexception.raised_in) %>
+            <%= wexception.raised_in %>
           </p>
           <p class="message" title="Message">
-            <%= display_last_message(wexception.last_message) %>
+            <%= wexception.last_message %>
           </p>
         </td>
         <td class="info2">
@@ -47,7 +47,7 @@
           </div>
 
           <div class="occurrences">
-            <%= link_to "# #{wexception.occurrences_count}", wexception_wexception_occurrences_path(wexception), title: "Click to see all occurrences of this exception" %>
+            # <%= link_to wexception.occurrences_count, wexception_wexception_occurrences_path(wexception), title: "Click to see all occurrences of this exception" %>
           </div>
         </td>
       </tr>

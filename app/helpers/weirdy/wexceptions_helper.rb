@@ -25,33 +25,10 @@ module Weirdy
         end
       end.join("<br>"))
     end
-
-    def display_last_message(message)
-      cut_long_lines(message, 200)
-    end
-    
-    def display_raised_in(raised_in)
-      return '-' if raised_in.blank?
-      cut_long_lines(raised_in, 200)
-    end
     
     def empty_message
       state = params[:state].nil? ? 'opened' : params[:state]
       "There are no #{state} exceptions."
-    end
-
-    def cut_long_lines(line, max)
-      return line if line.length <= max
-      words = line.split(/\s+/)
-      words.each do |word|
-        next if word.length <= max
-        # number of <br> inserts
-        inserts_number = (word.length / max)
-        inserts_number.times do |i|
-          word.insert((i+1) * max, '<br>')
-        end
-      end
-      raw words.join(' ')
     end
   end
 end
